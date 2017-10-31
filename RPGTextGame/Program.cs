@@ -10,19 +10,34 @@ namespace RPGTextGame
     class Program
     {
         static String intro = "Greetings summoner \nprepare to die";
+        static String command;
+        static String commandReturn;
         static void Main(string[] args)
         {
-            Write(intro);
-            Console.Read();
-            
+
+            while (true)
+            {
+                command = Read();
+                //interpertation of the command should be here
+                Write(command/*commandReturn will replace command after interpertation is implemented*/);
+            }
+
         }
         private static void Write(String text)
         {
             foreach (char c in text)
             {
                 Console.Write(c);
-                Thread.Sleep(100);
+                if (c == '\n')
+                    Thread.Sleep(150);
+                Thread.Sleep(30);
             }
+            Console.Write("\n");
+        }
+        private static String Read()
+        {
+            String playerInput = Console.ReadLine();
+            return playerInput;
         }
     }
 }

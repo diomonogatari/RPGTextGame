@@ -16,7 +16,7 @@ namespace RPGTextGame
         // HP, AD, AP, Armor, MagicRes, Stamina, Luck, Intelligence (0 to inf...)
         //if null there is no stat increase
         short? statToIncrease;
-               
+
 
 
         public UsableItem(String description, String afterUse, short enumOfTheStatToIncrease)
@@ -25,6 +25,6 @@ namespace RPGTextGame
             this.afterUsingReturnDescription = afterUse;
             this.statToIncrease = enumOfTheStatToIncrease;
         }
-        
+
     }
 }

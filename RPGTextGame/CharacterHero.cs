@@ -9,7 +9,7 @@ namespace RPGTextGame
     class CharacterHero : ICharacterMechanics
     {
         short HealthPoints;
-        short StaminaPoints;        
+        short StaminaPoints;
         short DamagePoints;
         short LifeSpan;
         short Armor;

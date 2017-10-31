@@ -20,7 +20,7 @@ namespace RPGTextGame
             seedGenerator.Next();
             lastGenerator = new Random(luck + seedGenerator.Next());
             outputGenerated = lastGenerator.Next(101);
-            if(outputGenerated >= 50 && outputGenerated+luck < 100)
+            if (outputGenerated >= 50 && outputGenerated + luck < 100)
             {
                 //if(outputGenerated+luck > 100) if we want to be scumbags
                 //{
@@ -35,6 +35,8 @@ namespace RPGTextGame
         public String DetermineChanceLevel(short luck, CharacterHero hero)
         {
             int generatedChance = CallRNGForChance(luck, hero);
+            if (generatedChance == -1)
+                return "There was an error with the RNG";
             if (generatedChance >= 0 && generatedChance <= 20 || generatedChance <= 100 && generatedChance >= 80)
                 return "bad";
             if (generatedChance >= 21 && generatedChance <= 40 || generatedChance <= 79 && generatedChance >= 60)
