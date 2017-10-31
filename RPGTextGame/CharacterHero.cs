@@ -8,11 +8,21 @@ namespace RPGTextGame
 {
     class CharacterHero : ICharacterMechanics
     {
-        ushort HealthPoints;
-        ushort EnergyPoints;
-        ushort ExhautionPoints;
-        ushort DamagePoints;
-        ushort LifeSpan;
+        short HealthPoints;
+        short StaminaPoints;        
+        short DamagePoints;
+        short LifeSpan;
+        short Armor;
+        short MagicResistence;
+        short MagicDamage;
+        short Luck;
+        short Intelligence;
+        List<Object> bag = new List<object>();
+
+        public void ShowBag()
+        {
+            //return the bag items
+        }
 
         public void Drink()
         {

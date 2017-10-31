@@ -14,6 +14,7 @@ namespace RPGTextGame
         {
             Write(intro);
             Console.Read();
+            
         }
         private static void Write(String text)
         {
