@@ -14,16 +14,19 @@ namespace RPGTextGame
         static String commandReturn;
         static void Main(string[] args)
         {
+            CharacterHero hero = new CharacterHero();
 
             while (true)
             {
                 command = Read();
-                //interpertation of the command should be here
-                Write(command/*commandReturn will replace command after interpertation is implemented*/);
+                if (command == "show bag".ToLower())
+                    hero.ShowBag();
+                else
+                    Write(command/*commandReturn will replace command after interpertation is implemented*/);
             }
 
         }
-        private static void Write(String text)
+        public static void Write(String text)
         {
             foreach (char c in text)
             {
