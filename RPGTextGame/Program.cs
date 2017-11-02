@@ -12,18 +12,28 @@ namespace RPGTextGame
         static String intro = "Greetings summoner \nprepare to die";
         static String command;
         static String commandReturn;
+        static bool pressed = true;
         static void Main(string[] args)
         {
             CharacterHero hero = new CharacterHero();
+            ConsoleKeyInfo cki = new ConsoleKeyInfo();
 
-            while (true)
+            do
             {
-                command = Read();
-                if (command == "show bag".ToLower())
-                    hero.ShowBag();
-                else
-                    Write(command/*commandReturn will replace command after interpertation is implemented*/);
-            }
+                while (!Console.KeyAvailable)
+                {
+                    //command = Read();
+                    //if (command == "show bag".ToLower())
+                    //    hero.ShowBag();
+                    //else
+                    //    Write(command/*commandReturn will replace command after interpertation is implemented*/);
+
+                    Console.WriteLine(GameMechanics.DetermineChanceLevel());
+                    //Thread.Sleep(3);
+
+                }
+            }while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+            Console.Read();
 
         }
         public static void Write(String text)

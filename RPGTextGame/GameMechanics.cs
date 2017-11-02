@@ -3,50 +3,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace RPGTextGame
 {
     class GameMechanics
     {
-        Random seedGenerator = new Random();
-        Random lastGenerator;
-        int outputGenerated;
+        static Random seedGenerator = new Random();
+
+        static int outputGenerated;
+
         public GameMechanics()
         {
 
         }
-        private int CallRNGForChance(short luck, CharacterHero hero)
+        //RNG IS A BIG SPAGHETTI CODE ATM
+
+        public static String DetermineChanceLevel(/*short luckOnDetermine, CharacterHero hero/*/)
         {
-            seedGenerator.Next();
-            lastGenerator = new Random(luck + seedGenerator.Next());
-            outputGenerated = lastGenerator.Next(101);
-            if (outputGenerated >= 50 && outputGenerated + luck < 100)
-            {
-                //if(outputGenerated+luck > 100) if we want to be scumbags
-                //{
-                //    return 100;
-                //}
-                return outputGenerated + luck;
-            }
-            if (outputGenerated <= 50 && outputGenerated - luck < 0)
-                return outputGenerated - luck;
-            return -1;
-        }
-        public String DetermineChanceLevel(short luck, CharacterHero hero)
-        {
-            int generatedChance = CallRNGForChance(luck, hero);
-            if (generatedChance == -1)
+
+            Thread.Sleep(1);
+            outputGenerated = seedGenerator.Next(1001);
+
+            //if (outputGenerated >= 50 && outputGenerated + luckOnDetermine < 100)
+            //{
+            //    //if(outputGenerated+luck > 100) if we want to be scumbags
+            //    //{
+            //    //    return 100;
+            //    //}
+
+            //    outputGenerated += luckOnDetermine;
+            //}
+            //if (outputGenerated <= 50 && outputGenerated - luckOnDetermine > 0)
+            //    outputGenerated -= luckOnDetermine;
+
+
+
+
+
+
+
+
+
+
+
+            if (outputGenerated == -1)
                 return "There was an error with the RNG";
-            if (generatedChance >= 0 && generatedChance <= 20 || generatedChance <= 100 && generatedChance >= 80)
+            if (outputGenerated >= 0 && outputGenerated <= 139 || outputGenerated <= 1000 && outputGenerated >= 870)
                 return "bad";
-            if (generatedChance >= 21 && generatedChance <= 40 || generatedChance <= 79 && generatedChance >= 60)
+            if (outputGenerated >= 140 && outputGenerated <= 409 || outputGenerated <= 869 && outputGenerated >= 600)
                 return "neutral";
-            if (generatedChance >= 41 && generatedChance <= 48 || generatedChance <= 59 && generatedChance >= 51)
+            if (outputGenerated >= 410 && outputGenerated <= 489 || outputGenerated <= 599 && outputGenerated >= 530)
                 return "good";
-            if (generatedChance == 49 || generatedChance == 50)
+            if (outputGenerated >= 490 && outputGenerated <= 500 || outputGenerated <= 529 && outputGenerated >= 506)
                 return "great";
+            if (outputGenerated >= 501 && outputGenerated <= 505)
+                return "Legendary";
             return new Exception("Value of chance cannot be determined").ToString();
         }
-
     }
 }
