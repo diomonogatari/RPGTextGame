@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace RPGTextGame
 {
-    class UsableItem : Item
+    public class UsableItem : Item
     {
-        short amountOfValueIncreased;
+        public short amountOfValueIncreased;
 
-        public UsableItem(string Description, string AfterUseDescription, bool Usable, bool Equipable, TypesOfStats Stat, short AmountToIncrease) : base(Description, AfterUseDescription, Usable, Equipable, Stat)
+        public UsableItem(string Description, string AfterUseDescription, TypesOfStats Stat, short AmountToIncrease) : base(Description, AfterUseDescription,  Stat)
         {
             this.amountOfValueIncreased = AmountToIncrease;
+            isUsable = true;
         }
     }
 }

@@ -6,28 +6,17 @@ using System.Threading.Tasks;
 
 namespace RPGTextGame
 {
-    class CharacterHero : ICharacterMechanics
+    public class CharacterHero : AbstractCharacter
     {
-        short HealthPoints { get; set; }
-        short StaminaPoints { get; set; }
-        short DamagePoints { get; set; }
-        short LifeSpan { get; set; }
-        short Armor { get; set; }
-        short MagicResistence { get; set; }
-        short MagicDamage { get; set; }
-        short Luck { get; set; }
-        public short Intelligence { get; set; }
 
 
         List<String> bag = new List<String>();
-        
 
-
-        public CharacterHero()
+        public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience)
         {
 
         }
-        
+
         public void ShowBag()
         {
             bag.Add("ItemTeste1");
@@ -38,42 +27,43 @@ namespace RPGTextGame
 
             //returns the bag
             foreach (String s in bag)
-                Program.Write(s);
+                Core.Write(s);
         }
 
-        public void Drink()
-        {
 
+
+        public override void Equip(EquipableItem equipable)
+        {
+            throw new NotImplementedException();
+        } //ToDo After lunch
+
+        public override void Explore()
+        {
+            throw new NotImplementedException();
         }
 
-        public void Eat()
+        public override void UseItem(UsableItem usable)
         {
+            if (usable.isUsable)
+            {
+                Core.Write(usable.afterUseDescription);
 
+                checkStatAndIncrease(usable.statToIncrease, usable, this);
+
+
+            }
+            else
+                Core.Write("This Item is not usable");
         }
 
-        public void Equip()
+        public override void LookSelf()
         {
-
+            Core.Write(this.description);
         }
 
-        public void LookSelf()
+        public override void LookItem(UsableItem usable)
         {
-
-        }
-
-        public void Read()
-        {
-
-        }
-
-        public void UseItem()
-        {
-
-        }
-
-        public void Explore()
-        {
-
+            Console.WriteLine(usable.description);
         }
     }
 }

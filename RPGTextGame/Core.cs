@@ -14,7 +14,8 @@ namespace RPGTextGame
         static String intro = "Greetings summoner \nprepare to die";
         static String command;
         static String commandReturn;
-        static bool pressed = true;
+
+
 
         #region Static Methods
         public static void Write(String text)

@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace RPGTextGame
 {
-    interface ICharacterMechanics
+    public interface ICharacterMechanics
     {
         void Explore();
-        void Drink();
-        void Eat();
-        void UseItem();
-        void Equip();
-        void Read();
+        void UseItem(UsableItem usable);
+        void Equip(EquipableItem equipable);
         void LookSelf();
-
-
+        void LookItem(UsableItem usable);
     }
 }

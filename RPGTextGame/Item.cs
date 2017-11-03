@@ -26,6 +26,11 @@ namespace RPGTextGame
             isEquipable = Equipable;
             statToIncrease = Stat;
         }
-
+        public Item(string Description, string AfterUseDescription, TypesOfStats Stat)
+        {
+            description = Description;
+            afterUseDescription = AfterUseDescription;
+            statToIncrease = Stat;
+        }
     }
 }
