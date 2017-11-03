@@ -2,9 +2,14 @@
 {
     public class EquipableItem : Item
     {
-        public EquipableItem(string Description, string AfterUseDescription, TypesOfStats Stat) : base(Description, AfterUseDescription,  Stat)
+        public enum TypeOfEquip { Belt, Boots, Cape, ChestPiece, Earrings, Helmet, Legs, LongSword, Necklace, Rings, Shield, Staff, Sword }
+        public bool isEquiped;
+        public TypeOfEquip equipType;
+        public EquipableItem(string Description, string AfterUseDescription, TypesOfStats Stat, TypeOfEquip EquipType) : base(Description, AfterUseDescription, Stat)
         {
-            isEquipable = true;
+            this.isEquipable = true;
+            this.isEquiped = false;
+            this.equipType = EquipType;
         }
     }
 }

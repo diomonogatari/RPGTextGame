@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,8 @@ namespace RPGTextGame
 
     class Core
     {
-        static String intro = "Greetings summoner \nprepare to die";
-        static String command;
-        static String commandReturn;
 
-
+        static string command;
 
         #region Static Methods
         public static void Write(String text)
@@ -72,15 +70,22 @@ namespace RPGTextGame
 
         static void Main(string[] args)
         {
-            CharacterHero hero = new CharacterHero("Diogo", 900,100,50,10,30,35,5,10,"Wubba Lubba Dub Dub ayy lmao", 999);
+            CharacterHero hero = new CharacterHero("Diogo", 900, 100, 50, 10, 30, 35, 5, 10, "Wubba Lubba Dub Dub ayy lmao", 999);
+            UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
+
+            EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots);
 
             while (!Console.KeyAvailable)
             {
-                command = Read();
-                if (command == "show bag".ToLower())
+                command = Read().ToLower();
+                if (command == "show bag")
                     hero.ShowBag();
-                else
-                    Write(command/*commandReturn will replace command after interpertation is implemented*/);
+                if (command == "look self")
+                    hero.LookSelf();
+                if (command == "look item")
+                    hero.LookItem(HealthPotion);
+                if (command == "use item")
+                    hero.UseItem(HealthPotion);
 
                 Thread.Sleep(3);
             }

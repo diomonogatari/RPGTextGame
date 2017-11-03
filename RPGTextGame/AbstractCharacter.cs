@@ -27,7 +27,7 @@ namespace RPGTextGame
         //for abilities and attacks there should be a class
         //same applies for perks
 
-        public void checkStatAndIncrease(TypesOfStats statToIncrease, UsableItem item, CharacterHero hero)
+        public void checkStatAndIncrease(TypesOfStats statToIncrease, /*Change to Item*/ UsableItem item, CharacterHero hero)
         {
             string output = hero.name + "'s ";
             switch (statToIncrease)

@@ -11,9 +11,12 @@ namespace RPGTextGame
 
 
         List<Item> bag = new List<Item>();
+        List<EquipableItem> equips = new List<EquipableItem>();
 
         public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience)
         {
+
+
 
         }
 
@@ -26,17 +29,41 @@ namespace RPGTextGame
             bag.Add(new UsableItem("Poseidon Scepter", "The tides are no match to your mind", TypesOfStats.MagicDamage, 40));
             bag.Add(new UsableItem("Strength of the Colossi", "The Unstopable strength that holds the world from the sky is now yours", TypesOfStats.HP, 40));
             #endregion
+            EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots);
+            bag.Add(HermesShoes);
 
             //returns the bag
             foreach (Item s in bag)
                 Core.Write(s.description);
+            Equip(HermesShoes);
         }
 
 
 
         public override void Equip(EquipableItem equipable)
         {
-            throw new NotImplementedException();
+            #region For Debug purposes
+            #endregion
+
+            if (equipable.isEquipable && bag.Contains(equipable)/*and if it's in the bag available to be equiped*/)
+            {
+                int index = bag.IndexOf(equipable);
+                EquipableItem itemInsideBag = (EquipableItem)bag[index];
+                if (!itemInsideBag.isEquiped)
+                {
+
+                    Core.Write(equipable.afterUseDescription);
+                    itemInsideBag.isEquiped = true;
+                    //increasing stats to player is missing
+                    bag.Remove(equipable);
+                    bag.Insert(index, itemInsideBag);
+                }
+                else
+                    Core.Write("Item is already equiped");
+
+            }
+            else
+                Core.Write("Item is not equipable/in bag");
         }
 
         public override void Explore()
@@ -46,11 +73,13 @@ namespace RPGTextGame
 
         public override void UseItem(UsableItem usable)
         {
-            if (usable.isUsable)
+
+            if (usable.isUsable/*also has to check if it is in the bag*/)
             {
                 Core.Write(usable.afterUseDescription);
 
                 checkStatAndIncrease(usable.statToIncrease, usable, this);
+                bag.Remove(usable);
 
 
             }
