@@ -10,7 +10,7 @@ namespace RPGTextGame
     {
 
 
-        List<String> bag = new List<String>();
+        List<Item> bag = new List<Item>();
 
         public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience)
         {
@@ -19,15 +19,17 @@ namespace RPGTextGame
 
         public void ShowBag()
         {
-            bag.Add("ItemTeste1");
-            bag.Add("ItemTeste2");
-            bag.Add("ItemTeste3");
-            bag.Add("ItemTeste4");
-            bag.Add("ItemTeste5");
+            #region This is for debugging
+            bag.Add(new UsableItem("The power of Odin", "You feel the rage of the Gods flow through your body", TypesOfStats.AttackDamage, 40));
+            bag.Add(new UsableItem("Lightning of Thor", "You can bend the lightning to your will", TypesOfStats.Armor, 40));
+            bag.Add(new UsableItem("Rage of Sparta", "No can hold you now", TypesOfStats.Stamina, 40));
+            bag.Add(new UsableItem("Poseidon Scepter", "The tides are no match to your mind", TypesOfStats.MagicDamage, 40));
+            bag.Add(new UsableItem("Strength of the Colossi", "The Unstopable strength that holds the world from the sky is now yours", TypesOfStats.HP, 40));
+            #endregion
 
             //returns the bag
-            foreach (String s in bag)
-                Core.Write(s);
+            foreach (Item s in bag)
+                Core.Write(s.description);
         }
 
 
@@ -35,7 +37,7 @@ namespace RPGTextGame
         public override void Equip(EquipableItem equipable)
         {
             throw new NotImplementedException();
-        } //ToDo After lunch
+        }
 
         public override void Explore()
         {

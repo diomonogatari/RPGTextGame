@@ -72,7 +72,7 @@ namespace RPGTextGame
 
         static void Main(string[] args)
         {
-            CharacterHero hero = new CharacterHero();
+            CharacterHero hero = new CharacterHero("Diogo", 900,100,50,10,30,35,5,10,"Wubba Lubba Dub Dub ayy lmao", 999);
 
             while (!Console.KeyAvailable)
             {
