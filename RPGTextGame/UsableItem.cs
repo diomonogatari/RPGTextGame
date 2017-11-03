@@ -7,24 +7,13 @@ using System.Threading.Tasks;
 
 namespace RPGTextGame
 {
-    class UsableItem
+    class UsableItem : Item
     {
-        bool isUsable = true;
-        String itemDescription = "";
-        String afterUsingReturnDescription = "";
         short amountOfValueIncreased;
-        // HP, AD, AP, Armor, MagicRes, Stamina, Luck, Intelligence (0 to inf...)
-        //if null there is no stat increase
-        short? statToIncrease;
 
-
-
-        public UsableItem(String description, String afterUse, short enumOfTheStatToIncrease)
+        public UsableItem(string Description, string AfterUseDescription, bool Usable, bool Equipable, TypesOfStats Stat, short AmountToIncrease) : base(Description, AfterUseDescription, Usable, Equipable, Stat)
         {
-            this.itemDescription = description;
-            this.afterUsingReturnDescription = afterUse;
-            this.statToIncrease = enumOfTheStatToIncrease;
+            this.amountOfValueIncreased = AmountToIncrease;
         }
-
     }
 }
