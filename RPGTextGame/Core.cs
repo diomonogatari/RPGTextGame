@@ -75,8 +75,11 @@ namespace RPGTextGame
 
             EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots);
 
+            OpeningNarrative.Start();
+
             while (!Console.KeyAvailable)
             {
+                
                 command = Read().ToLower();
                 if (command == "show bag")
                     hero.ShowBag();

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AbstractCharacter.cs" />
     <Compile Include="CharacterHero.cs" />
+    <Compile Include="OpeningNarrative.cs" />
     <Compile Include="EquipableItem.cs" />
     <Compile Include="GameMechanics.cs" />
     <Compile Include="ICharacterMechanics.cs" />
