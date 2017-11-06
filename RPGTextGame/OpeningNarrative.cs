@@ -53,45 +53,38 @@ namespace RPGTextGame
             Thread.Sleep(1000);
             Write("...");
             Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Write("'Hello?!'");
             Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Write("'Is someone there?!'");
             Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.White;
             Write("You hear footsteps coming towards you.");
             Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Write("'What the... How...'");
             Thread.Sleep(500);
-            Write("'Are you alive? Do you have a name?'");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write("'Are you alive? Fucks sake, WE HAVE TO GO!'");
             Thread.Sleep(500);
-            Write("Your name: ");
-            hero.name = Console.ReadLine();
-            Write("'" + hero.name + ", is it?" + "");
-            Write("Yes / No");
-            input = Console.ReadLine();
-            if (input.ToLower() == "yes")
-            {
-                Write("Well, " + hero.name + ", let's get you the fuck out of here.");
-                Thread.Sleep(500);
-            }
-            else
-            {
-                Write("Your name: ");
-                hero.name = Console.ReadLine();
-                Write("Well, " + hero.name + ", let's get you the fuck out of here.");
-                Thread.Sleep(500);
-            }
-            //Cstring Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience
-
+            Console.ForegroundColor = ConsoleColor.White;
             Write("You see a hand reaching out to you.");
             Thread.Sleep(500);
-            WriteSlow("Suddenly, you start to black out...");
+            Write("Suddenly, you start to black out...");
             Thread.Sleep(1500);
         }
 
         public void Chapter1()
         {
+            String input;
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(1500);
             Write("Rain is falling on your face.");
-            Thread.Sleep(1000);
+            Thread.Sleep(2500);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             Write("You can't remember the last time you felt rain, or saw the sky for that matter.");
             Thread.Sleep(1000);
             Write("Now that you think about it, you can't remember much at all.");
@@ -102,14 +95,106 @@ namespace RPGTextGame
             Thread.Sleep(1000);
             Write("Red, almost like it was covered in blood. It sends a chill down your spine.");
             Thread.Sleep(1000);
-            WriteSlow("'H-hello?...'");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write("'Oh, you're awake.'");
             Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.White;
             Write("You realize this person is talking to you.");
             Thread.Sleep(1000);
-            Write("DURR HURR PREPARE FOR BATTLE!!!!!!");
-            EnemyCharacter enemy = new EnemyCharacter("Ratatat", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0);
-            Battle openingBattle = new Battle(hero, enemy);
-            openingBattle.BattleTurnBased();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write("'You're lucky you made it out of there alive, you know?'");
+            Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("You're speechless. You finally get a glimpse of this person's face.");
+            Thread.Sleep(1000);
+            Write("She has strong features, some scars, yet her face is delicate.");
+            Thread.Sleep(1000);
+            Write("She is skinny. Surprisingly skinny. Yet she has been sharpening a sword bigger than you.");
+            Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write("'You do remember how to talk, right?'");
+            Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("Yes / No");
+            input = Console.ReadLine();
+            if (input.ToLower() == "yes")
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Write("'Knew it.'");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Write("'Yeah, right.'");
+                Thread.Sleep(1000);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("She stands up. She looks threatning on her feet.");
+            Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write("'Need a hand?'");
+            Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("Yes / No");
+            input = Console.ReadLine();
+
+            if (input.ToLower() == "yes")
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Write("'Here you go.'");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Write("'Well, you're not going to stay sitting there. Come on.'");
+                Thread.Sleep(1000);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("She's stronger than she looks. She effortlessly helps you get up.");
+            Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write("I'm Viola. Vi for short.");
+            Thread.Sleep(500);
+            Write("Do you have a name?");
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("That was a weird question. You hadn't given much thought to it.");
+            Thread.Sleep(500);
+            Write("You try to remember if you had a name...");
+            Thread.Sleep(500);
+            Write("You name is: ");
+            hero.name = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write("'" + hero.name + ", is it?" + "");
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("Yes / No");
+            input = Console.ReadLine();
+            if (input.ToLower() == "yes")
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Write("Well, " + hero.name + ", nice to meet you.");
+                Thread.Sleep(500);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Write("Your name: ");
+                hero.name = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Write("Well, " + hero.name + ", nice to meet you.");
+                Thread.Sleep(500);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Write("She has a small grin on her face. Only now you've realized she has almost pale eyes, almost ghostly.");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Write(hero.name + ", we have to move. You're lucky enough to be alive, so let's not take this for granted.");
+
+
+
+            //EnemyCharacter enemy = new EnemyCharacter("Ratatat", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0);
+            //Battle openingBattle = new Battle(hero, enemy);
+            //openingBattle.BattleTurnBased();
 
         }
     }

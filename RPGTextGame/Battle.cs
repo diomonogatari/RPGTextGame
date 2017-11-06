@@ -18,7 +18,7 @@ namespace RPGTextGame
 
         int yourTurn = 1;
         String command = "";
-
+        
         CharacterHero hero;
         EnemyCharacter enemy;
         
@@ -43,6 +43,13 @@ namespace RPGTextGame
                         Core.Write("Roundhouse Kick - 3 (Deals 80 damage, 70% hit, + modifier, but you take 25 damage)");
                         Core.Write("Focus - 4 (Increases your attack modifier by 0.5)");
                         Core.Write("Cancel - 5");
+                        Core.Write("Your command: ");
+                        command = Console.ReadLine();
+                        if (command == "1")
+                        {
+
+                        }
+
                     }
                 }
             }

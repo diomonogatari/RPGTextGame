@@ -12,6 +12,9 @@ namespace RPGTextGame
 
         List<Item> bag = new List<Item>();
         List<EquipableItem> equips = new List<EquipableItem>();
+        List<String> pmoves = new List<String>();
+
+        
 
         public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience)
         {
@@ -36,6 +39,11 @@ namespace RPGTextGame
             foreach (Item s in bag)
                 Core.Write(s.description);
             Equip(HermesShoes);
+        }
+
+        public void ShowMoves()
+        {
+            
         }
 
 
