@@ -109,7 +109,8 @@ namespace RPGTextGame
             Thread.Sleep(1000);
             Write("She has strong features, some scars, yet her face is delicate.");
             Thread.Sleep(1000);
-            Write("She is skinny. Surprisingly skinny. Yet she has been sharpening a sword bigger than you.");
+            Write("She is skinny. Surprisingly skinny.");
+            Write("Yet, she has been sharpening a sword bigger than you.");
             Thread.Sleep(1000);
             Console.ForegroundColor = ConsoleColor.Magenta;
             Write("'You do remember how to talk, right?'");
@@ -158,6 +159,7 @@ namespace RPGTextGame
             Write("I'm Viola. Vi for short.");
             Thread.Sleep(500);
             Write("Do you have a name?");
+            Thread.Sleep(500);
             Console.ForegroundColor = ConsoleColor.White;
             Write("That was a weird question. You hadn't given much thought to it.");
             Thread.Sleep(500);
@@ -186,15 +188,17 @@ namespace RPGTextGame
                 Thread.Sleep(500);
             }
             Console.ForegroundColor = ConsoleColor.White;
-            Write("She has a small grin on her face. Only now you've realized she has almost pale eyes, almost ghostly.");
+            Write("She has a small grin on her face.");
+            Write("Only now you've realized she has almost pale eyes, almost ghostly.");
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Write(hero.name + ", we have to move. You're lucky enough to be alive, so let's not take this for granted.");
+            Write(hero.name + ", we have to move.");
+            Write("You're lucky enough to be alive, so let's not take this for granted.");
 
 
 
-            //EnemyCharacter enemy = new EnemyCharacter("Ratatat", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0);
-            //Battle openingBattle = new Battle(hero, enemy);
-            //openingBattle.BattleTurnBased();
+            EnemyCharacter enemy = new EnemyCharacter("Ratatat", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0);
+            Battle openingBattle = new Battle(hero, enemy);
+            openingBattle.BattleTurnBased();
 
         }
     }

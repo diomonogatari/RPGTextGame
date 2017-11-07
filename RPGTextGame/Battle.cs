@@ -37,12 +37,7 @@ namespace RPGTextGame
                     command = Console.ReadLine();
                     if (command == "1")
                     {
-                        Core.Write("Which attack will you choose?");
-                        Core.Write("Slap - 1 (Deals 25 damage, 100% hit, + modifier)");
-                        Core.Write("Punch - 2 (Deals 50 damage, 80% hit, + modifier)");
-                        Core.Write("Roundhouse Kick - 3 (Deals 80 damage, 70% hit, + modifier, but you take 25 damage)");
-                        Core.Write("Focus - 4 (Increases your attack modifier by 0.5)");
-                        Core.Write("Cancel - 5");
+                        hero.MoveList();
                         Core.Write("Your command: ");
                         command = Console.ReadLine();
                         if (command == "1")

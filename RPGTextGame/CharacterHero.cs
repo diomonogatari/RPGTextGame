@@ -12,7 +12,7 @@ namespace RPGTextGame
 
         List<Item> bag = new List<Item>();
         List<EquipableItem> equips = new List<EquipableItem>();
-        List<String> pmoves = new List<String>();
+        List<Abilities> pmoves = new List<Abilities>();
 
         
 
@@ -41,8 +41,15 @@ namespace RPGTextGame
             Equip(HermesShoes);
         }
 
-        public void ShowMoves()
+        public void MoveList()
         {
+            #region this is also for debugging KEK
+            pmoves.Add(new Abilities("Sword Slash", "You swing your sword at the target", 50, 100, "Physical"));
+            pmoves.Add(new Abilities("Shield Bash", "You slam your shield in your target's face", 75, 80, "Physical"));
+            #endregion 
+
+            foreach (Abilities s in pmoves)
+                Core.Write(s.abilityName + " , " + s.description);
             
         }
 
