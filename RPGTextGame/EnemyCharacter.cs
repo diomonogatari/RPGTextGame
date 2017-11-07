@@ -8,14 +8,13 @@ namespace RPGTextGame
 {
     class EnemyCharacter : AbstractCharacter
     {
-
-        List<Item> bag = new List<Item>();
-        List<EquipableItem> equips = new List<EquipableItem>();
-
         public EnemyCharacter(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience)
         {
-
+            bag = new List<Item>();
+            abilityList = new List<Abilities>();
+            equips = new List<EquipableItem>();
         }
+        //create more constructors to add objects to list, since enemies are live generated
 
         public override void Equip(EquipableItem equipable)
         {

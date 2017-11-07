@@ -20,6 +20,9 @@ namespace RPGTextGame
         public short intelligence { get; set; }
         public string description { get; set; }
         public int experience { get; set; }
+        public List<Item> bag;
+        public List<Abilities> abilityList;
+        public List<EquipableItem> equips;
         //abilities missing
         //attacks missing
         //choosing an action in fight

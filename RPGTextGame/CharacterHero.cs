@@ -7,18 +7,13 @@ using System.Threading.Tasks;
 namespace RPGTextGame
 {
     public class CharacterHero : AbstractCharacter
-    {
-
-
-        List<Item> bag = new List<Item>();
-        List<EquipableItem> equips = new List<EquipableItem>();
-        List<Abilities> pmoves = new List<Abilities>();
-
-        
+    {      
 
         public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience)
         {
-
+            abilityList = new List<Abilities>();
+            equips = new List<EquipableItem>();
+            bag = new List<Item>();
 
 
         }
@@ -44,11 +39,11 @@ namespace RPGTextGame
         public void MoveList()
         {
             #region this is also for debugging KEK
-            pmoves.Add(new Abilities("Sword Slash", "You swing your sword at the target", 50, 100, "Physical"));
-            pmoves.Add(new Abilities("Shield Bash", "You slam your shield in your target's face", 75, 80, "Physical"));
+            abilityList.Add(new Abilities("Sword Slash", "You swing your sword at the target", 50, 100, "Physical"));
+            abilityList.Add(new Abilities("Shield Bash", "You slam your shield in your target's face", 75, 80, "Physical"));
             #endregion 
 
-            foreach (Abilities s in pmoves)
+            foreach (Abilities s in abilityList)
                 Core.Write(s.abilityName + " , " + s.description);
             
         }
@@ -57,9 +52,6 @@ namespace RPGTextGame
 
         public override void Equip(EquipableItem equipable)
         {
-            #region For Debug purposes
-            #endregion
-
             if (equipable.isEquipable && bag.Contains(equipable)/*and if it's in the bag available to be equiped*/)
             {
                 int index = bag.IndexOf(equipable);
