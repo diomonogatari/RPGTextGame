@@ -11,6 +11,8 @@ namespace RPGTextGame
         //what do all items have?
         //a description
         //a after use description
+        //Should items have colors acording to their rarity?
+        
         public string itemName { get; set; }
         public string description { get; set; }
         public string afterUseDescription { get; set; }

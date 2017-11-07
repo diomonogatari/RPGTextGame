@@ -23,6 +23,7 @@ namespace RPGTextGame
         public List<Item> bag;
         public List<Abilities> abilityList;
         public List<EquipableItem> equips;
+        public ConsoleColor charColor;
         //abilities missing
         //attacks missing
         //choosing an action in fight
@@ -90,7 +91,7 @@ namespace RPGTextGame
             }
         }
 
-        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience)
+        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience, ConsoleColor Color)
         {
             name = Name;
             health = HP;
@@ -104,8 +105,10 @@ namespace RPGTextGame
             intelligence = INT;
             description = Description;
             experience = 0;
+            charColor = Color;
+
         }
-        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, string Description, int Experience)
+        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, string Description, int Experience, ConsoleColor Color)
         {
             name = Name;
             health = HP;
@@ -117,6 +120,8 @@ namespace RPGTextGame
             magicDamage = MagicDamage;
             description = Description;
             experience = 0;
+            charColor = Color;
+
         }
 
         public abstract void Equip(EquipableItem equipable);

@@ -17,6 +17,7 @@ namespace RPGTextGame
         static string command;
 
         #region Static Methods
+        //An overload of Write might be useful for Speed Changing
         public static void Write(String text)
         {
             foreach (char c in text)
@@ -28,8 +29,20 @@ namespace RPGTextGame
             }
             Console.Write("\n");
         }
+        public static void Write(String text,ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                if (c == '\n')
+                    Thread.Sleep(150);
+                Thread.Sleep(30);
+            }
+            Console.Write("\n");
+        }
 
-        private static String Read()
+        public static String Read()
         {
             String playerInput = Console.ReadLine();
             return playerInput;
@@ -41,7 +54,6 @@ namespace RPGTextGame
             {
                 case "AttackDamage":
                     return TypesOfStats.AttackDamage;
-                    
                 case "HP":
                     return TypesOfStats.HP;
                 case "MagicResistence":
@@ -71,7 +83,7 @@ namespace RPGTextGame
 
         static void Main(string[] args)
         {
-            CharacterHero hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0);
+            CharacterHero hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
             //CharacterHero hero = new CharacterHero("Diogo", 900, 100, 50, 10, 30, 35, 5, 10, "Wubba Lubba Dub Dub ayy lmao", 999);
             UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
 

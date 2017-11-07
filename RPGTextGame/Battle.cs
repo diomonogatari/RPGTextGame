@@ -10,17 +10,15 @@ namespace RPGTextGame
 {
     class Battle
     {
+        CharacterHero hero;
+        EnemyCharacter enemy;
         public Battle(CharacterHero hero, EnemyCharacter enemy)
         {
             this.hero = hero;
             this.enemy = enemy;
         }
-
         int yourTurn = 1;
-        String command = "";
-        
-        CharacterHero hero;
-        EnemyCharacter enemy;
+
         
         public void BattleTurnBased()
         {
@@ -34,13 +32,12 @@ namespace RPGTextGame
                     Core.Write("What do you do? ");
                     Core.Write("Attack = 1 ");
                     Core.Write("Magic Spell = 2 ");
-                    command = Console.ReadLine();
-                    if (command == "1")
+                    if (Core.Read() == "1")
                     {
                         hero.MoveList();
                         Core.Write("Your command: ");
-                        command = Console.ReadLine();
-                        if (command == "1")
+                        
+                        if (Core.Read() == "1")
                         {
                             hero.MoveList();
                         }

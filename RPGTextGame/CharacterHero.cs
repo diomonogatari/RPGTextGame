@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 namespace RPGTextGame
 {
     public class CharacterHero : AbstractCharacter
-    {      
+    {
 
-        public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience)
+        public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience, ConsoleColor Color) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience, Color)
         {
             abilityList = new List<Abilities>();
             equips = new List<EquipableItem>();
             bag = new List<Item>();
-
-
         }
 
         public void ShowBag()
@@ -38,7 +36,7 @@ namespace RPGTextGame
 
         public void MoveList()
         {
-            #region this is also for debugging KEK
+            #region this is also for debugging
             abilityList.Add(new Abilities("Sword Slash", "You swing your sword at the target", 50, 100, "Physical"));
             abilityList.Add(new Abilities("Shield Bash", "You slam your shield in your target's face", 75, 80, "Physical"));
             #endregion 

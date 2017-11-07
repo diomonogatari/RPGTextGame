@@ -15,7 +15,6 @@ namespace RPGTextGame
         public int accuracy { get; set; }
         public string damageType { get; set; }
         
-
         public Abilities(string AbilityName, string Description, int Damage, int Accuracy, string DamageType)
         {
             abilityName = AbilityName;
@@ -24,6 +23,5 @@ namespace RPGTextGame
             accuracy = Accuracy;
             damageType = DamageType;
         }
-        
     }
 }

@@ -8,13 +8,13 @@ namespace RPGTextGame
 {
     class Woods_1
     {
-        public Woods_1(CharacterHero hero)
+        CharacterHero hero;
+        public Woods_1(CharacterHero Hero)
         {
-            this.hero = hero;
+            this.hero = Hero;
         }
 
-        CharacterHero hero;
-        string input = "";
+
 
         public void Woodsini()
         {
@@ -25,20 +25,19 @@ namespace RPGTextGame
             Core.Write("To your right there's a path that seems to have been used a lot in the past.");
             Core.Write("What do you do?");
             Core.Write("Left / Forward / Right ");
-            input = Console.ReadLine();
 
-            if (input.ToLower() == "left")
+            if (Core.Read().ToLower() == "left")
             {
                 Core.Write("You decide to go left.");
                 Woodsleft();
             }
 
-            if (input.ToLower() == "forward")
+            if (Core.Read().ToLower() == "forward")
             {
                 Core.Write("You decide to go forward.");
             }
 
-            if (input.ToLower() == "right")
+            if (Core.Read().ToLower() == "right")
             {
                 Core.Write("You decide to go right.");
             }
@@ -51,15 +50,15 @@ namespace RPGTextGame
             Core.Write("There's a rotten smell in the air that keeps getting stronger.");
             Core.Write("Do you turn back or continue forward?");
             Core.Write("Back / Forward");
-            input = Console.ReadLine();
+            
 
-            if (input.ToLower() == "back")
+            if (Core.Read().ToLower() == "back")
             {
                 Core.Write("You decide to go back.");
                 Woodsini();
             }
 
-            if (input.ToLower() == "forward")
+            if (Core.Read().ToLower() == "forward")
             {
                 Core.Write("You decide to go forward.");
             }
