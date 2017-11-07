@@ -77,6 +77,9 @@ namespace RPGTextGame
 
             EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots);
 
+            Woods_1 explore = new Woods_1(hero);
+            explore.Woodsini();
+
             OpeningNarrative narrative = new OpeningNarrative(hero);
             narrative.Start();
             Console.Clear();

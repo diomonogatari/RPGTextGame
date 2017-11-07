@@ -42,7 +42,7 @@ namespace RPGTextGame
                         command = Console.ReadLine();
                         if (command == "1")
                         {
-
+                            hero.MoveList();
                         }
 
                     }
