@@ -11,6 +11,7 @@ namespace RPGTextGame
         void Explore();
         void UseItem(UsableItem usable);
         void Equip(EquipableItem equipable);
+
         void LookSelf();
         void LookItem(UsableItem usable);
     }

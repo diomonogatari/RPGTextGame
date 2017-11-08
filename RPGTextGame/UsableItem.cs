@@ -9,11 +9,9 @@ namespace RPGTextGame
 {
     public class UsableItem : Item
     {
-        public short amountOfValueIncreased;
 
-        public UsableItem(string Description, string AfterUseDescription, TypesOfStats Stat, short AmountToIncrease) : base(Description, AfterUseDescription,  Stat)
+        public UsableItem(string Description, string AfterUseDescription, TypesOfStats Stat, short AmountOfValueIncreased) : base(Description, AfterUseDescription,  Stat, AmountOfValueIncreased)
         {
-            this.amountOfValueIncreased = AmountToIncrease;
             isUsable = true;
         }
     }

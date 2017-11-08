@@ -31,54 +31,54 @@ namespace RPGTextGame
         //for abilities and attacks there should be a class
         //same applies for perks
 
-        public void checkStatAndIncrease(TypesOfStats statToIncrease, /*Change to Item*/ UsableItem item, CharacterHero hero)
+        public void checkStatAndIncrease(TypesOfStats statToIncrease, /*Change to Item*/ Item item, AbstractCharacter character)
         {
-            string output = hero.name + "'s ";
+            string output = character.name + "'s ";
             switch (statToIncrease)
             {
                 case TypesOfStats.Armor:
-                    hero.armor += item.amountOfValueIncreased;
-                    output += "armor is now " + hero.armor;
+                    character.armor += item.amountOfValueIncreased;
+                    output += "Armor is now " + character.armor;
                     Core.Write(output);
                     break;
                 case TypesOfStats.HP:
-                    hero.health += item.amountOfValueIncreased;
-                    output += "Health is now " + hero.health;
+                    character.health += item.amountOfValueIncreased;
+                    output += "Health is now " + character.health;
                     Core.Write(output);
                     break;
                 case TypesOfStats.AttackDamage:
-                    hero.attackDamage += item.amountOfValueIncreased;
-                    output += "Attack Damage is now " + hero.attackDamage;
+                    character.attackDamage += item.amountOfValueIncreased;
+                    output += "Attack Damage is now " + character.attackDamage;
                     Core.Write(output);
                     break;
                 case TypesOfStats.MagicDamage:
-                    hero.magicDamage += item.amountOfValueIncreased;
-                    output += "Magic Damage is now " + hero.magicDamage;
+                    character.magicDamage += item.amountOfValueIncreased;
+                    output += "Magic Damage is now " + character.magicDamage;
                     Core.Write(output);
                     break;
                 case TypesOfStats.MagicResistence:
-                    hero.magicResistence += item.amountOfValueIncreased;
-                    output += "Magic Resistence is now " + hero.magicResistence;
+                    character.magicResistence += item.amountOfValueIncreased;
+                    output += "Magic Resistence is now " + character.magicResistence;
                     Core.Write(output);
                     break;
                 case TypesOfStats.Stamina:
-                    hero.stamina += item.amountOfValueIncreased;
-                    output += "Stamina is now " + hero.armor;
+                    character.stamina += item.amountOfValueIncreased;
+                    output += "Stamina is now " + character.armor;
                     Core.Write(output);
                     break;
                 case TypesOfStats.Luck:
-                    hero.luck += item.amountOfValueIncreased;
-                    output += "Luck is now " + hero.armor;
+                    character.luck += item.amountOfValueIncreased;
+                    output += "Luck is now " + character.armor;
                     Core.Write(output);
                     break;
                 case TypesOfStats.Intelligence:
-                    hero.intelligence += item.amountOfValueIncreased;
-                    output += "Intelligence is now " + hero.armor;
+                    character.intelligence += item.amountOfValueIncreased;
+                    output += "Intelligence is now " + character.armor;
                     Core.Write(output);
                     break;
                 case TypesOfStats.Experience:
-                    hero.experience += item.amountOfValueIncreased;
-                    output += "Experience is now " + hero.armor;
+                    character.experience += item.amountOfValueIncreased;
+                    output += "Experience is now " + character.armor;
                     Core.Write(output);
                     break;
                 case TypesOfStats.None:
@@ -123,11 +123,44 @@ namespace RPGTextGame
             charColor = Color;
 
         }
+        public void Equip(EquipableItem equipable)
+        {
+            if (equipable.isEquipable && bag.Contains(equipable)/*and if it's in the bag available to be equiped*/)
+            {
+                int index = bag.IndexOf(equipable);//register the index where the item is
+                EquipableItem itemInsideBag = (EquipableItem)bag[index];//make a copy of the item inside of the bag to put it back in after updating equip states
+                if (!itemInsideBag.isEquiped)//if the state of the item that is in the bag is not true (it's not equiped)
+                {
+                    //then equip it
+                    Core.Write(equipable.afterUseDescription);
+                    itemInsideBag.isEquiped = true;
+                    checkStatAndIncrease(equipable.statToIncrease, equipable, this);//non tested
+                    bag.Remove(equipable);
+                    bag.Insert(index, itemInsideBag);
+                }
+                else
+                    Core.Write("Item is already equiped");//else it's already equiped
 
-        public abstract void Equip(EquipableItem equipable);
-        public abstract void Explore();
+            }
+            else
+                Core.Write("Item is not equipable/in bag");
+        }
+        public virtual void Explore() { }
         public abstract void LookItem(UsableItem usable);
         public abstract void LookSelf();
-        public abstract void UseItem(UsableItem usable);
+        public void UseItem(UsableItem usable)
+        {
+            if (usable.isUsable/*also has to check if it is in the bag*/)
+            {
+                Core.Write(usable.afterUseDescription);
+
+                checkStatAndIncrease(usable.statToIncrease, usable, this);
+                bag.Remove(usable);
+
+
+            }
+            else
+                Core.Write("This Item is not usable");
+        }
     }
 }

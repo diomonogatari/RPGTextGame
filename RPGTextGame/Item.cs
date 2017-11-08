@@ -19,22 +19,26 @@ namespace RPGTextGame
         public bool isUsable { get; set; }
         public bool isEquipable { get; set; }
         public TypesOfStats statToIncrease { get; set; }
+        public short amountOfValueIncreased { get; set; }
+        private TypesOfStats stat;
 
-        public Item(string ItemName, string Description, string AfterUseDescription, bool Usable, bool Equipable, TypesOfStats Stat)
+        public Item(string ItemName, string Description, string AfterUseDescription, bool Usable, bool Equipable,short AmountOfValueIncreased, TypesOfStats Stat)
         {
-            itemName = ItemName;
-            description = Description;
-            afterUseDescription = AfterUseDescription;
-            isUsable = Usable;
-            isEquipable = Equipable;
-            statToIncrease = Stat;
+            this.itemName = ItemName;
+            this.description = Description;
+            this.afterUseDescription = AfterUseDescription;
+            this.isUsable = Usable;
+            this.isEquipable = Equipable;
+            this.statToIncrease = Stat;
+            this.amountOfValueIncreased = AmountOfValueIncreased;
         }
-        public Item(string Description, string AfterUseDescription, TypesOfStats Stat)
+        public Item(string Description, string AfterUseDescription, TypesOfStats Stat, short AmountOfValueIncreased)
         {
-            itemName = itemName;
-            description = Description;
-            afterUseDescription = AfterUseDescription;
-            statToIncrease = Stat;
+            this.itemName = itemName;
+            this.description = Description;
+            this.afterUseDescription = AfterUseDescription;
+            this.statToIncrease = Stat;
+            this.amountOfValueIncreased = AmountOfValueIncreased;
         }
     }
 }
