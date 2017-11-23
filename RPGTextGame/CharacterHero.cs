@@ -9,7 +9,7 @@ namespace RPGTextGame
     public class CharacterHero : AbstractCharacter
     {
 
-        public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience, ConsoleColor Color) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Description, Experience, Color)
+        public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, ConsoleColor Color) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Speed, Description, Experience, Color)
         {
             abilityList = new List<Abilities>();
             equips = new List<EquipableItem>();
@@ -38,8 +38,8 @@ namespace RPGTextGame
         public void MoveList()
         {
             #region this is also for debugging
-            abilityList.Add(new Abilities("Sword Slash", "You swing your sword at the target", 50, 100, "Physical"));
-            abilityList.Add(new Abilities("Shield Bash", "You slam your shield in your target's face", 75, 80, "Physical"));
+            abilityList.Add(new Abilities("Sword Slash", "You swing your sword at the target", 50, 100, Abilities.AbilityType.Physical));
+            abilityList.Add(new Abilities("Shield Bash", "You slam your shield in your target's face", 75, 80, Abilities.AbilityType.Physical));
             #endregion 
 
             foreach (Abilities s in abilityList)
@@ -47,19 +47,13 @@ namespace RPGTextGame
             
         }
 
-        public override void LookSelf()
-        {
-            Core.Write(this.description);
-        }
-
-        public override void LookItem(UsableItem usable)
-        {
-            Console.WriteLine(usable.description);
-        }
-
         public override void Explore()
         {
             throw new NotImplementedException();
+        }
+        public override void useAttack()
+        {
+            
         }
     }
 }

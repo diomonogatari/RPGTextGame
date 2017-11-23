@@ -20,7 +20,6 @@ namespace RPGTextGame
         public bool isEquipable { get; set; }
         public TypesOfStats statToIncrease { get; set; }
         public short amountOfValueIncreased { get; set; }
-        private TypesOfStats stat;
 
         public Item(string ItemName, string Description, string AfterUseDescription, bool Usable, bool Equipable,short AmountOfValueIncreased, TypesOfStats Stat)
         {

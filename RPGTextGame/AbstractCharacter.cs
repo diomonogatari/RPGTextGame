@@ -12,7 +12,7 @@ namespace RPGTextGame
         public short health { get; set; }
         public short stamina { get; set; }
         public short attackDamage { get; set; }
-        public short lifeSpan { get; set; }
+        public short lifeSpan { get; set; } // how long is alive : age
         public short armor { get; set; }
         public short magicResistence { get; set; }
         public short magicDamage { get; set; }
@@ -20,14 +20,14 @@ namespace RPGTextGame
         public short intelligence { get; set; }
         public string description { get; set; }
         public int experience { get; set; }
+        public ushort speed { get; set; }
         public List<Item> bag;
         public List<Abilities> abilityList;
         public List<EquipableItem> equips;
         public ConsoleColor charColor;
-        //abilities missing
-        //attacks missing
-        //choosing an action in fight
-        //perks missing
+        //Todo: Coin Purse missing
+        //Todo: choosing an action in fight
+        //Todo: perks missing
         //for abilities and attacks there should be a class
         //same applies for perks
 
@@ -91,7 +91,7 @@ namespace RPGTextGame
             }
         }
 
-        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, string Description, int Experience, ConsoleColor Color)
+        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, ConsoleColor Color) //Full Creation
         {
             name = Name;
             health = HP;
@@ -105,10 +105,19 @@ namespace RPGTextGame
             intelligence = INT;
             description = Description;
             experience = 0;
+            speed = Speed;
             charColor = Color;
 
         }
-        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, string Description, int Experience, ConsoleColor Color)
+        public AbstractCharacter(String Name, string Description, short Age, ConsoleColor Color) //NPC Creation
+        {
+            name = Name;
+            lifeSpan = Age;
+            description = Description;
+            charColor = Color;
+
+        }
+        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, string Description, ushort Speed, int Experience, ConsoleColor Color) //Enemy creation
         {
             name = Name;
             health = HP;
@@ -120,6 +129,7 @@ namespace RPGTextGame
             magicDamage = MagicDamage;
             description = Description;
             experience = 0;
+            speed = Speed;
             charColor = Color;
 
         }
@@ -146,8 +156,14 @@ namespace RPGTextGame
                 Core.Write("Item is not equipable/in bag");
         }
         public virtual void Explore() { }
-        public abstract void LookItem(UsableItem usable);
-        public abstract void LookSelf();
+        public virtual void LookItem(UsableItem usable)
+        {
+            Core.Write(usable.description);
+        }
+        public void LookSelf()
+        {
+            Core.Write(this.description);
+        }
         public void UseItem(UsableItem usable)
         {
             if (usable.isUsable/*also has to check if it is in the bag*/)
@@ -162,5 +178,10 @@ namespace RPGTextGame
             else
                 Core.Write("This Item is not usable");
         }
+        public virtual void useAttack()
+        {
+
+        }
+
     }
 }

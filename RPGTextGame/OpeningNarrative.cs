@@ -134,7 +134,7 @@ namespace RPGTextGame
             Core.Write("'" + hero.name + ", we have to move.'", magenta);
             Core.Write("'You're lucky enough to be alive, so let's not take this for granted.'");
 
-            EnemyCharacter enemy = new EnemyCharacter("Ratatat", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Red);
+            EnemyCharacter enemy = new EnemyCharacter("Ratatat", 500, 100, 50, 10, 25, 5, 1, 5,10, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Red);
             Battle openingBattle = new Battle(hero, enemy);
             openingBattle.BattleTurnBased();
 

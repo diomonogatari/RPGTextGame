@@ -14,7 +14,8 @@ namespace RPGTextGame
     class Core
     {
 
-        static string command;
+        
+        //static string command;
 
         #region Static Methods
         //An overload of Write might be useful for Speed Changing
@@ -29,7 +30,7 @@ namespace RPGTextGame
             }
             Console.Write("\n");
         }
-        public static void Write(String text,ConsoleColor color)
+        public static void Write(String text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             foreach (char c in text)
@@ -79,18 +80,26 @@ namespace RPGTextGame
             }
         }
 
-    #endregion
+        #endregion
 
         static void Main(string[] args)
         {
-            CharacterHero hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
+            #region Call the UI
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new UI());
+            #endregion
+
+
+            /*
+            CharacterHero hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, 10, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
             //CharacterHero hero = new CharacterHero("Diogo", 900, 100, 50, 10, 30, 35, 5, 10, "Wubba Lubba Dub Dub ayy lmao", 999);
             UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
 
             EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30);
 
-            Woods_1 explore = new Woods_1(hero);
-            explore.Woodsini();
+            //Woods_1 explore = new Woods_1(hero);
+            //explore.Woodsini();
 
             OpeningNarrative narrative = new OpeningNarrative(hero);
             narrative.Start();
@@ -99,7 +108,7 @@ namespace RPGTextGame
 
             while (!Console.KeyAvailable)
             {
-                
+
                 command = Read().ToLower();
                 if (command == "show bag")
                     hero.ShowBag();
@@ -112,6 +121,7 @@ namespace RPGTextGame
 
                 Thread.Sleep(3);
             }
+            */
         }
 
     }
