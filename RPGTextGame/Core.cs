@@ -19,8 +19,9 @@ namespace RPGTextGame
 
         #region Static Methods
         //An overload of Write might be useful for Speed Changing
-        public static void Write(String text)
+        public static void Write(String text) //Todo adapt to UI
         {
+            
             foreach (char c in text)
             {
                 Console.Write(c);

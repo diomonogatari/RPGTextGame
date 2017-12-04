@@ -25,6 +25,9 @@ namespace RPGTextGame
         public List<Abilities> abilityList;
         public List<EquipableItem> equips;
         public ConsoleColor charColor;
+        public uint coinPurse;
+
+
         //Todo: Coin Purse missing
         //Todo: choosing an action in fight
         //Todo: perks missing
@@ -91,6 +94,7 @@ namespace RPGTextGame
             }
         }
 
+        #region Constructores
         public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, ConsoleColor Color) //Full Creation
         {
             name = Name;
@@ -133,6 +137,12 @@ namespace RPGTextGame
             charColor = Color;
 
         }
+        #endregion
+
+
+
+
+
         public void Equip(EquipableItem equipable)
         {
             if (equipable.isEquipable && bag.Contains(equipable)/*and if it's in the bag available to be equiped*/)
@@ -155,7 +165,13 @@ namespace RPGTextGame
             else
                 Core.Write("Item is not equipable/in bag");
         }
+
+
+
+
         public virtual void Explore() { }
+
+
         public virtual void LookItem(UsableItem usable)
         {
             Core.Write(usable.description);
