@@ -46,6 +46,7 @@
             this.btn1.TabIndex = 0;
             this.btn1.Text = "Opt 1";
             this.btn1.UseVisualStyleBackColor = true;
+            this.btn1.Click += new System.EventHandler(this.btn1_Click);
             // 
             // btn4
             // 
@@ -57,6 +58,7 @@
             this.btn4.TabIndex = 1;
             this.btn4.Text = "Opt 4";
             this.btn4.UseVisualStyleBackColor = true;
+            this.btn4.Click += new System.EventHandler(this.btn4_Click);
             // 
             // btn3
             // 
@@ -68,6 +70,7 @@
             this.btn3.TabIndex = 3;
             this.btn3.Text = "Opt 3";
             this.btn3.UseVisualStyleBackColor = true;
+            this.btn3.Click += new System.EventHandler(this.btn3_Click);
             // 
             // btn2
             // 
@@ -79,6 +82,7 @@
             this.btn2.TabIndex = 2;
             this.btn2.Text = "Opt 2";
             this.btn2.UseVisualStyleBackColor = true;
+            this.btn2.Click += new System.EventHandler(this.btn2_Click);
             // 
             // txtDialog
             // 

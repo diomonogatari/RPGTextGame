@@ -18,6 +18,18 @@ namespace RPGTextGame
         public static Color buttonBackColor = Color.Black;
         int formwidth;
         int formheight;
+        public static TextBox gameOutput = null;
+
+        public static int howManyButtons(UI ui)
+        {
+            int numberOfButtons = 0;
+            foreach (Control b in ui.Controls)
+            {
+                if (b.GetType() == typeof(Button))
+                    numberOfButtons++;
+            }
+            return numberOfButtons;
+        }
 
         public UI()
         {
@@ -25,6 +37,8 @@ namespace RPGTextGame
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.KeyPreview = true;
+
+            gameOutput = txtDialog;
 
             formwidth = this.Width;
             formheight = this.Height;
@@ -59,12 +73,7 @@ namespace RPGTextGame
         {
             int x = this.Width; //form width
             int h = this.Height; //form height
-            int numberOfButtons = 0;
-            foreach (Control b in this.Controls)
-            {
-                if (b.GetType() == typeof(Button))
-                    numberOfButtons++;
-            }
+            int numberOfButtons = howManyButtons(this);
             this.BackColor = Color.Black;
             txtDialog.Enabled = false;
             txtDialog.Location = new Point(1, 0);
@@ -93,8 +102,30 @@ namespace RPGTextGame
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to leave?", "Exit", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    this.Close();
+                }
             }
+        }
+
+        private void btn1_Click(object sender, EventArgs e)
+        {
+            Core.Write("this is button 1", Color.Red, txtDialog, this);
+        }
+        private void btn2_Click(object sender, EventArgs e)
+        {
+            Core.Write("this is button 2", Color.Green, txtDialog, this);
+        }
+        private void btn3_Click(object sender, EventArgs e)
+        {
+            Core.Write("this is button 3", Color.Blue, txtDialog,this);
+        }
+        private void btn4_Click(object sender, EventArgs e)
+        {
+            Core.Write("this is button 4", Color.White, txtDialog,this);
         }
     }
 }

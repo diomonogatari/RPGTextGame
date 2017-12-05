@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Drawing;
 
 
 namespace RPGTextGame
@@ -14,14 +15,15 @@ namespace RPGTextGame
     class Core
     {
 
-        
+
         //static string command;
 
         #region Static Methods
         //An overload of Write might be useful for Speed Changing
-        public static void Write(String text) //Todo adapt to UI
+        //Deprecated
+        public static void Write(String text)
         {
-            
+
             foreach (char c in text)
             {
                 Console.Write(c);
@@ -31,6 +33,7 @@ namespace RPGTextGame
             }
             Console.Write("\n");
         }
+        //Deprecated
         public static void Write(String text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -43,7 +46,34 @@ namespace RPGTextGame
             }
             Console.Write("\n");
         }
-
+        public static void Write(String text, Color color, TextBox textArea, UI ui)
+        {
+            ui.Enabled = false;
+            foreach (Control b in ui.Controls)//Disable controls
+            {
+                if (b.GetType() == typeof(Button))
+                    b.Visible = false;
+            }
+            textArea.ForeColor = color;
+            foreach (char c in text) //Write the text
+            {
+                textArea.AppendText(c.ToString());
+                if (c == '\n')
+                {
+                    textArea.AppendText("\n");
+                    Thread.Sleep(100);
+                }
+                Thread.Sleep(30);
+            }
+            textArea.AppendText("\n");
+            foreach (Control b in ui.Controls)//Enable controls
+            {
+                if (b.GetType() == typeof(Button))
+                    b.Visible = true;
+            }
+            ui.Enabled = true;
+        }
+        //Deprecated
         public static String Read()
         {
             String playerInput = Console.ReadLine();
