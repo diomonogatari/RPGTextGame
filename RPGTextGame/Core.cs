@@ -46,33 +46,31 @@ namespace RPGTextGame
             }
             Console.Write("\n");
         }
-        public static void Write(String text, Color color, TextBox textArea, UI ui)
+
+
+
+        public static void Write(String text, Color color, TextBox textArea, Form ui)
         {
-            ui.Enabled = false;
-            foreach (Control b in ui.Controls)//Disable controls
-            {
-                if (b.GetType() == typeof(Button))
-                    b.Visible = false;
-            }
             textArea.ForeColor = color;
+
+            var handler = new Action<string>(textArea.AppendText);
+
             foreach (char c in text) //Write the text
             {
-                textArea.AppendText(c.ToString());
+                textArea.Invoke(handler, c.ToString());
                 if (c == '\n')
                 {
-                    textArea.AppendText("\n");
+                    textArea.Invoke(handler, "\n");
                     Thread.Sleep(100);
                 }
                 Thread.Sleep(30);
             }
-            textArea.AppendText("\n");
-            foreach (Control b in ui.Controls)//Enable controls
-            {
-                if (b.GetType() == typeof(Button))
-                    b.Visible = true;
-            }
-            ui.Enabled = true;
+            textArea.Invoke(handler, "\n");
         }
+
+
+
+
         //Deprecated
         public static String Read()
         {

@@ -34,6 +34,7 @@
             this.btn3 = new System.Windows.Forms.Button();
             this.btn2 = new System.Windows.Forms.Button();
             this.txtDialog = new System.Windows.Forms.TextBox();
+            this.bckWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // btn1
@@ -97,6 +98,11 @@
             this.txtDialog.Size = new System.Drawing.Size(774, 385);
             this.txtDialog.TabIndex = 2;
             // 
+            // bckWorker
+            // 
+            this.bckWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bckWorker_DoWork);
+            this.bckWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bckWorker_RunWorkerCompleted);
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -131,5 +137,6 @@
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn3;
         private System.Windows.Forms.TextBox txtDialog;
+        private System.ComponentModel.BackgroundWorker bckWorker;
     }
 }

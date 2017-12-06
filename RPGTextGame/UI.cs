@@ -102,7 +102,6 @@ namespace RPGTextGame
         {
             if (e.KeyCode == Keys.Escape)
             {
-
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to leave?", "Exit", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -111,21 +110,68 @@ namespace RPGTextGame
             }
         }
 
+        private void changeButtonsEnabledTo(bool valueDesired)
+        {
+            foreach (Control b in this.Controls)
+                if (b.GetType() == typeof(Button))
+                    b.Enabled = valueDesired;
+        }
+
+
         private void btn1_Click(object sender, EventArgs e)
         {
-            Core.Write("this is button 1", Color.Red, txtDialog, this);
+            changeButtonsEnabledTo(false);
+            bckWorker.RunWorkerAsync("Opt 1");
         }
         private void btn2_Click(object sender, EventArgs e)
         {
-            Core.Write("this is button 2", Color.Green, txtDialog, this);
+            changeButtonsEnabledTo(false);
+            bckWorker.RunWorkerAsync("Opt 2");
         }
         private void btn3_Click(object sender, EventArgs e)
         {
-            Core.Write("this is button 3", Color.Blue, txtDialog,this);
+            changeButtonsEnabledTo(false);
+            bckWorker.RunWorkerAsync("Opt 3");
         }
         private void btn4_Click(object sender, EventArgs e)
         {
-            Core.Write("this is button 4", Color.White, txtDialog,this);
+            changeButtonsEnabledTo(false);
+            bckWorker.RunWorkerAsync("Opt 4");
         }
+
+
+
+
+        #region background thread
+        private void bckWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            changeButtonsEnabledTo(true);
+        }
+
+        private void bckWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            var debug = sender.GetType();
+            switch (e.Argument.ToString())
+            {
+                case "Opt 1":
+                    Core.Write("this is button 1", Color.Red, txtDialog, this);
+                    break;
+                case "Opt 2":
+                    Core.Write("this is button 2", Color.Green, txtDialog, this);
+                    break;
+                case "Opt 3":
+                    Core.Write("this is button 3", Color.Blue, txtDialog, this);
+                    break;
+                case "Opt 4":
+                    Core.Write("this is button 4", Color.White, txtDialog, this);
+                    break;
+                default:
+                    Core.Write("ERROR", Color.White, txtDialog, this);
+                    break;
+
+            }
+        }
+        #endregion
     }
 }
