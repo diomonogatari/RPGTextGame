@@ -14,6 +14,7 @@ namespace RPGTextGame
         public OpeningNarrative(CharacterHero Hero)
         {
             this.hero = Hero;
+            Start();
         }
         ConsoleColor white = ConsoleColor.White;
         ConsoleColor magenta = ConsoleColor.Magenta;
@@ -25,17 +26,17 @@ namespace RPGTextGame
             Thread.Sleep(1000);
             Core.Write("...");
             Thread.Sleep(1000);
-            Core.Write("'Hello?!'");
+            Core.Write("'Hello?!'", magenta);
             Thread.Sleep(1000);
-            Core.Write("'Is someone there?!'");
+            Core.Write("'Is someone there?!'", magenta);
             Thread.Sleep(1000);
-            Core.Write("You hear footsteps coming towards you.");
+            Core.Write("You hear footsteps coming towards you.",white);
             Thread.Sleep(1000);
-            Core.Write("'What the... How...'");
+            Core.Write("'What the... How...'", magenta);
             Thread.Sleep(500);
-            Core.Write("'Are you alive? Fucks sake, WE HAVE TO GO!'");
+            Core.Write("'Are you alive? Fucks sake, WE HAVE TO GO!'", magenta);
             Thread.Sleep(500);
-            Core.Write("You see a hand reaching out to you.");
+            Core.Write("You see a hand reaching out to you.",white);
             Thread.Sleep(500);
             Core.Write("Suddenly, you start to black out...");
             Thread.Sleep(1500);
