@@ -22,8 +22,6 @@ namespace RPGTextGame
         #region Static Methods
         public static void Write(String text, ConsoleControl.ConsoleControl console, Color color)
         {
-
-
             foreach (char c in text)
             {
                 console.WriteOutput(c.ToString(), color);
@@ -36,7 +34,6 @@ namespace RPGTextGame
 
         public static void Write(String text, ConsoleControl.ConsoleControl console, Color color, int speed)
         {
-            
             foreach (char c in text)
             {
                 console.WriteOutput(c.ToString(),color);

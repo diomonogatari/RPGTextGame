@@ -19,6 +19,7 @@ namespace RPGTextGame
         public static Color buttonBackColor = Color.Black;
         public static Color colorOfTextToPaint = Color.AliceBlue;
         public static string textThatWasChoosenToWrite = "";
+        public bool escWasPressed = false;
         
 
 
@@ -64,9 +65,8 @@ namespace RPGTextGame
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to leave?", "Exit", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    consoleDialog.StopProcess();
-                    Thread.Sleep(500);//wait a bit before closing application
-                    this.Close();
+                    escWasPressed = true;
+                    bckWorker.RunWorkerAsync("Esc");
                 }
             }
             if (e.KeyCode == Keys.F1)
@@ -85,6 +85,11 @@ namespace RPGTextGame
             consoleDialog.StartProcess(this.Name, "");
             consoleDialog.WriteOutput("For help press F1\n", Color.White);
         }
+        private void killProcces()
+        {
+            consoleDialog.StopProcess();
+            Thread.Sleep(500);
+        }
 
 
 
@@ -96,6 +101,7 @@ namespace RPGTextGame
             int numberOfButtons = howManyButtons(this);
 
             consoleDialog.Font = new Font(consoleDialog.Font.FontFamily, 20);
+            
 
 
             this.BackColor = Color.Black;
@@ -170,6 +176,8 @@ namespace RPGTextGame
         #region Background thread
         private void bckWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (escWasPressed)
+                this.Close();
             changeButtonsEnabledTo(true);
 
 
@@ -196,6 +204,9 @@ namespace RPGTextGame
                 case "Opt 4":
                     Core.Write("this is button 4, it writes a really sloooooow text", consoleDialog, Color.White,  70);
 
+                    break;
+                case "Esc":
+                    killProcces();
                     break;
                 default:
                     Core.Write("ERROR",consoleDialog, Color.White,  10);
