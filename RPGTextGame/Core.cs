@@ -32,6 +32,29 @@ namespace RPGTextGame
             console.WriteOutput("\n", color);
         }
 
+        //This changes the whole text instead of the text that will be written, not a bug but a windows console "feature"
+        delegate void WriteCallback(String text, ConsoleControl.ConsoleControl console, Color color, FontStyle style);
+        public static void Write(String text, ConsoleControl.ConsoleControl console, Color color, FontStyle style)
+        {
+            if (console.InvokeRequired)
+            {
+                WriteCallback callback = new WriteCallback(Write);
+                console.Invoke(callback, new object[] { text, console, color, style });
+            }
+            else
+            {
+                console.Font = new Font(console.Font.FontFamily, console.Font.Size, FontStyle.Italic);
+                foreach (char c in text)
+                {
+                    console.WriteOutput(c.ToString(), color);
+                    if (c == '\n')
+                        Thread.Sleep(150);//Paragraph speed
+                    Thread.Sleep(30);//Character speed
+                }
+                console.WriteOutput("\n", color);
+            }
+        }
+
         public static void Write(String text, ConsoleControl.ConsoleControl console, Color color, int speed)
         {
             foreach (char c in text)
@@ -43,8 +66,9 @@ namespace RPGTextGame
             }
             console.WriteOutput("\n",color);
         }
-        ////Deprecated
-        //public static String Read()
+        //////Deprecated
+        //delegate void ReadCallback();
+        //public static String Read(UI ui)
         //{
         //    String playerInput = Console.ReadLine();
         //    return playerInput;

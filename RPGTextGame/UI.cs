@@ -20,7 +20,8 @@ namespace RPGTextGame
         public static Color colorOfTextToPaint = Color.AliceBlue;
         public static string textThatWasChoosenToWrite = "";
         public bool userWantsToLeave = false;
-        CharacterHero hero;
+        CharacterHero testHero;
+        OpeningNarrative open;
 
 
 
@@ -32,7 +33,8 @@ namespace RPGTextGame
             this.FormBorderStyle = FormBorderStyle.None;//Makes it "fullscreen"
             this.KeyPreview = true;
 
-            hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, 10, "Your clothes are filthy, and there's cuts and blood all over your body", 0, Color.Red, consoleDialog);
+            testHero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, 10, "Your clothes are filthy, and there's cuts and blood all over your body", 0, Color.Red, consoleDialog);
+            open = new OpeningNarrative(testHero);
 
 
 
@@ -51,11 +53,15 @@ namespace RPGTextGame
             btn4.ForeColor = buttonForeColor;
             btn4.BackColor = buttonBackColor;
 
+
+
+
         }
 
         #region UI events
         private void UI_Load(object sender, EventArgs e)
         {
+
             UIDrawing();
             createProccesInfo();
 
@@ -89,6 +95,7 @@ namespace RPGTextGame
             consoleDialog.StartProcess(this.Name, "");
             consoleDialog.WriteOutput("For help press F1\n", Color.White);
         }
+
         private void killProcces()
         {
             consoleDialog.StopProcess();
@@ -105,6 +112,7 @@ namespace RPGTextGame
             int numberOfButtons = howManyButtons(this);
 
             consoleDialog.Font = new Font(consoleDialog.Font.FontFamily, 20);
+            consoleDialog.InternalRichTextBox.ReadOnly = true;
 
 
 
@@ -192,11 +200,11 @@ namespace RPGTextGame
             switch (e.Argument.ToString())
             {
                 case "Opt 1":
-                    hero.LookSelf();
+                    testHero.LookSelf();
 
                     break;
                 case "Opt 2":
-                    Core.Write("this is button 2, it writes a medium speed text", consoleDialog, Color.Green, 30);
+                    open.Start();
 
                     break;
                 case "Opt 3":
@@ -204,7 +212,7 @@ namespace RPGTextGame
 
                     break;
                 case "Opt 4":
-                    hero.UseItem(new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100));
+                    testHero.UseItem(new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100));
 
                     break;
                 default:

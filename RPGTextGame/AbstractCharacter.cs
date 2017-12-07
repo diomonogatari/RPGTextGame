@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Drawing;
 
 namespace RPGTextGame
@@ -38,13 +38,14 @@ namespace RPGTextGame
 
         public void checkStatAndIncrease(TypesOfStats statToIncrease, /*Change to Item*/ Item item, AbstractCharacter character)
         {
+
             string output = character.name + "'s ";
             switch (statToIncrease)
             {
                 case TypesOfStats.Armor:
                     character.armor += item.amountOfValueIncreased;
                     output += "Armor is now " + character.armor;
-                    Core.Write(output,console, charColor);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.HP:
                     character.health += item.amountOfValueIncreased;
@@ -89,7 +90,8 @@ namespace RPGTextGame
                 case TypesOfStats.None:
                     break;//Should we say something?
                 case TypesOfStats.Invalid:
-                    console.WriteOutput("Error: Invalid stat type", Color.DodgerBlue);
+
+                    console.WriteOutput("*Error: Invalid stat type*", Color.Red);
                     break;
                 default:
                     break;
@@ -97,7 +99,6 @@ namespace RPGTextGame
         }
 
         #region Constructores
-        //Todo adicionar o gameUI aos construtores para haver referencia do UI na class
         public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, Color Color, ConsoleControl.ConsoleControl Console) //Full Creation
         {
             name = Name;
@@ -180,7 +181,7 @@ namespace RPGTextGame
 
         public virtual void LookItem(UsableItem usable)
         {
-            Core.Write(usable.description,console, charColor);
+            Core.Write(usable.description, console, charColor);
         }
         public void LookSelf()
         {
