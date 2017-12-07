@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Drawing;
+using ConsoleControl;
 
 
 namespace RPGTextGame
@@ -19,64 +20,46 @@ namespace RPGTextGame
         //static string command;
 
         #region Static Methods
-        //An overload of Write might be useful for Speed Changing
-        //Deprecated
-        public static void Write(String text)
+        public static void Write(String text, ConsoleControl.ConsoleControl console, Color color)
         {
+
 
             foreach (char c in text)
             {
-                Console.Write(c);
+                console.WriteOutput(c.ToString(), color);
                 if (c == '\n')
-                    Thread.Sleep(150);
-                Thread.Sleep(30);
+                    Thread.Sleep(150);//Paragraph speed
+                Thread.Sleep(30);//Character speed
             }
-            Console.Write("\n");
+            console.WriteOutput("\n", color);
         }
-        //Deprecated
-        public static void Write(String text, ConsoleColor color)
+
+        public static void Write(String text, ConsoleControl.ConsoleControl console, Color color, int speed)
         {
-            Console.ForegroundColor = color;
+            
             foreach (char c in text)
             {
-                Console.Write(c);
+                console.WriteOutput(c.ToString(),color);
                 if (c == '\n')
-                    Thread.Sleep(150);
-                Thread.Sleep(30);
+                    Thread.Sleep(150);//Paragraph speed
+                Thread.Sleep(speed);//Character speed
             }
-            Console.Write("\n");
-        }
-
-
-
-        public static void Write(String text, Color color, TextBox textArea, Form ui)
-        {
-            textArea.ForeColor = color;
-
-            var handler = new Action<string>(textArea.AppendText);
-
-            foreach (char c in text) //Write the text
-            {
-                textArea.Invoke(handler, c.ToString());
-                if (c == '\n')
-                {
-                    textArea.Invoke(handler, "\n");
-                    Thread.Sleep(100);
-                }
-                Thread.Sleep(30);
-            }
-            textArea.Invoke(handler, "\n");
+            console.WriteOutput("\n",color);
         }
 
 
 
 
-        //Deprecated
-        public static String Read()
-        {
-            String playerInput = Console.ReadLine();
-            return playerInput;
-        }
+
+
+
+
+        ////Deprecated
+        //public static String Read()
+        //{
+        //    String playerInput = Console.ReadLine();
+        //    return playerInput;
+        //}
 
         public static TypesOfStats StatEnumConverter(string statToCheck)
         {

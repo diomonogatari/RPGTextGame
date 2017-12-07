@@ -33,8 +33,8 @@
             this.btn4 = new System.Windows.Forms.Button();
             this.btn3 = new System.Windows.Forms.Button();
             this.btn2 = new System.Windows.Forms.Button();
-            this.txtDialog = new System.Windows.Forms.TextBox();
             this.bckWorker = new System.ComponentModel.BackgroundWorker();
+            this.consoleDialog = new ConsoleControl.ConsoleControl();
             this.SuspendLayout();
             // 
             // btn1
@@ -85,23 +85,20 @@
             this.btn2.UseVisualStyleBackColor = true;
             this.btn2.Click += new System.EventHandler(this.btn2_Click);
             // 
-            // txtDialog
-            // 
-            this.txtDialog.BackColor = System.Drawing.Color.Black;
-            this.txtDialog.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDialog.Enabled = false;
-            this.txtDialog.ForeColor = System.Drawing.Color.White;
-            this.txtDialog.Location = new System.Drawing.Point(1, 2);
-            this.txtDialog.Multiline = true;
-            this.txtDialog.Name = "txtDialog";
-            this.txtDialog.ReadOnly = true;
-            this.txtDialog.Size = new System.Drawing.Size(774, 385);
-            this.txtDialog.TabIndex = 2;
-            // 
             // bckWorker
             // 
             this.bckWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bckWorker_DoWork);
             this.bckWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bckWorker_RunWorkerCompleted);
+            // 
+            // consoleDialog
+            // 
+            this.consoleDialog.IsInputEnabled = true;
+            this.consoleDialog.Location = new System.Drawing.Point(3, 2);
+            this.consoleDialog.Name = "consoleDialog";
+            this.consoleDialog.SendKeyboardCommandsToProcess = false;
+            this.consoleDialog.ShowDiagnostics = false;
+            this.consoleDialog.Size = new System.Drawing.Size(772, 386);
+            this.consoleDialog.TabIndex = 6;
             // 
             // UI
             // 
@@ -109,7 +106,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(779, 458);
-            this.Controls.Add(this.txtDialog);
+            this.Controls.Add(this.consoleDialog);
             this.Controls.Add(this.btn3);
             this.Controls.Add(this.btn2);
             this.Controls.Add(this.btn1);
@@ -124,9 +121,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.UI_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UI_KeyDown);
-            this.Resize += new System.EventHandler(this.UI_Resize);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -136,7 +131,7 @@
         private System.Windows.Forms.Button btn4;
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn3;
-        private System.Windows.Forms.TextBox txtDialog;
         private System.ComponentModel.BackgroundWorker bckWorker;
+        private ConsoleControl.ConsoleControl consoleDialog;
     }
 }

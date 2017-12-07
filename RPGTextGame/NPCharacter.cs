@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace RPGTextGame
 {
     public abstract class NPCharacter : AbstractCharacter
     {
         public bool targatable = false;
-        public NPCharacter(string Name,  string Description, short Age, ConsoleColor Color): base(Name, Description, Age, Color)
+        public NPCharacter(string Name,  string Description, short Age, Color Color, ConsoleControl.ConsoleControl Console): base(Name, Description, Age, Color, Console)
         {
             this.experience = int.MaxValue;
             this.magicResistence = short.MaxValue;

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Drawing;
+using ConsoleControl;
 
 
 namespace RPGTextGame
@@ -12,6 +14,7 @@ namespace RPGTextGame
     class Battle
     {
         CharacterHero hero;
+        ConsoleControl.ConsoleControl console;
         EnemyCharacter enemy;
         StringBuilder intro = new StringBuilder("A ");
         bool battleEnded = false;
@@ -30,7 +33,7 @@ namespace RPGTextGame
             while (!isSomeoneDead() && turn != 0)
             { //cycle end if someone died and the turn is not 0
                 if (turn == 0)
-                    Core.Write(intro.Append(enemy.name).Append(" aproaches you. \n").Append(enemy.description).ToString());
+                    Core.Write(intro.Append(enemy.name).Append(" aproaches you. \n").Append(enemy.description).ToString(), console, System.Drawing.Color.White);
                 else
                 {
 
@@ -42,13 +45,13 @@ namespace RPGTextGame
         {
             if (hero.health == 0)
             {
-                Core.Write("You died");
+                Core.Write("You died", console, Color.White);
                 battleEnded = true;
                 return true;
             }
             if (enemy.health == 0)
             {
-                Core.Write("Your opponent was defeated");
+                Core.Write("Your opponent was defeated", console, Color.White);
                 battleEnded = true;
                 return true;
             }
@@ -60,7 +63,7 @@ namespace RPGTextGame
         }
         private void checkActions(string actionToCheck)
         {
-            if(actionToCheck == "")
+            if (actionToCheck == "")
             {
                 //randomize the action
             }
@@ -69,7 +72,7 @@ namespace RPGTextGame
                 switch (actionToCheck)
                 {
                     case "banana":
-                        
+
                         break;
                 }
             }
@@ -79,8 +82,8 @@ namespace RPGTextGame
         {
             if (hero.speed > enemy.speed)
             {
-                string instruction = Core.Read();
-                checkActions(instruction);
+                //Todo clean thisstring instruction = Core.Read();
+                //checkActions(instruction);
             }
             else
             {
@@ -92,27 +95,27 @@ namespace RPGTextGame
 
         public void BattleTurnBased()
         {
-            Core.Write("A wild " + enemy.name + " appears!");
+            Core.Write("A wild " + enemy.name + " appears!", console, Color.White);
             while (enemy.health > 0 && hero.health > 0)
             {
                 while (turn == 0)
                 {
-                    Core.Write("Your HP: " + hero.health);
-                    Core.Write("Their HP: " + enemy.health);
-                    Core.Write("What do you do? ");
-                    Core.Write("Attack = 1 ");
-                    Core.Write("Magic Spell = 2 ");
-                    if (Core.Read() == "1")
-                    {
-                        hero.MoveList();
-                        Core.Write("Your command: ");
+                    Core.Write("Your HP: " + hero.health, console, Color.White);
+                    Core.Write("Their HP: " + enemy.health, console, Color.White);
+                    Core.Write("What do you do? ", console, Color.White);
+                    Core.Write("Attack = 1 ", console, Color.White);
+                    Core.Write("Magic Spell = 2 ", console, Color.White);
+                    //if (Core.Read() == "1")
+                    //{
+                    //    hero.MoveList();
+                    //    Core.Write("Your command: ");
 
-                        if (Core.Read() == "1")
-                        {
-                            hero.MoveList();
-                        }
+                    //    if (Core.Read() == "1")
+                    //    {
+                    //        hero.MoveList();
+                    //    }
 
-                    }
+                    //}
                 }
             }
         }

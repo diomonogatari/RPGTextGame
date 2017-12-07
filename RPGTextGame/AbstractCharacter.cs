@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace RPGTextGame
 {
@@ -24,9 +25,9 @@ namespace RPGTextGame
         public List<Item> bag;
         public List<Abilities> abilityList;
         public List<EquipableItem> equips;
-        public ConsoleColor charColor;
+        public Color charColor;
         public uint coinPurse;
-        private UI gameUI;
+        public ConsoleControl.ConsoleControl console;
 
 
         //Todo: Coin Purse missing
@@ -43,52 +44,52 @@ namespace RPGTextGame
                 case TypesOfStats.Armor:
                     character.armor += item.amountOfValueIncreased;
                     output += "Armor is now " + character.armor;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    Core.Write(output,console, Color.Blue);
                     break;
                 case TypesOfStats.HP:
                     character.health += item.amountOfValueIncreased;
                     output += "Health is now " + character.health;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.AttackDamage:
                     character.attackDamage += item.amountOfValueIncreased;
                     output += "Attack Damage is now " + character.attackDamage;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.MagicDamage:
                     character.magicDamage += item.amountOfValueIncreased;
                     output += "Magic Damage is now " + character.magicDamage;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.MagicResistence:
                     character.magicResistence += item.amountOfValueIncreased;
                     output += "Magic Resistence is now " + character.magicResistence;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.Stamina:
                     character.stamina += item.amountOfValueIncreased;
-                    output += "Stamina is now " + character.armor;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    output += "Stamina is now " + character.stamina;
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.Luck:
                     character.luck += item.amountOfValueIncreased;
-                    output += "Luck is now " + character.armor;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    output += "Luck is now " + character.luck;
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.Intelligence:
                     character.intelligence += item.amountOfValueIncreased;
-                    output += "Intelligence is now " + character.armor;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    output += "Intelligence is now " + character.intelligence;
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.Experience:
                     character.experience += item.amountOfValueIncreased;
-                    output += "Experience is now " + character.armor;
-                    Core.Write(output, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                    output += "Experience is now " + character.experience;
+                    Core.Write(output, console, Color.Blue);
                     break;
                 case TypesOfStats.None:
                     break;//Should we say something?
                 case TypesOfStats.Invalid:
-                    Console.WriteLine("Error: Invalid stat type");
+                    console.WriteOutput("Error: Invalid stat type", Color.DodgerBlue);
                     break;
                 default:
                     break;
@@ -97,7 +98,7 @@ namespace RPGTextGame
 
         #region Constructores
         //Todo adicionar o gameUI aos construtores para haver referencia do UI na class
-        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, ConsoleColor Color) //Full Creation
+        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, Color Color, ConsoleControl.ConsoleControl Console) //Full Creation
         {
             name = Name;
             health = HP;
@@ -113,17 +114,19 @@ namespace RPGTextGame
             experience = 0;
             speed = Speed;
             charColor = Color;
+            console = Console;
 
         }
-        public AbstractCharacter(String Name, string Description, short Age, ConsoleColor Color) //NPC Creation
+        public AbstractCharacter(String Name, string Description, short Age, Color Color, ConsoleControl.ConsoleControl Console) //NPC Creation
         {
             name = Name;
             lifeSpan = Age;
             description = Description;
             charColor = Color;
+            console = Console;
 
         }
-        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, string Description, ushort Speed, int Experience, ConsoleColor Color) //Enemy creation
+        public AbstractCharacter(String Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, string Description, ushort Speed, int Experience, Color Color, ConsoleControl.ConsoleControl Console) //Enemy creation
         {
             name = Name;
             health = HP;
@@ -137,6 +140,7 @@ namespace RPGTextGame
             experience = 0;
             speed = Speed;
             charColor = Color;
+            console = Console;
 
         }
         #endregion
@@ -154,18 +158,18 @@ namespace RPGTextGame
                 if (!itemInsideBag.isEquiped)//if the state of the item that is in the bag is not true (it's not equiped)
                 {
                     //then equip it
-                    Core.Write(equipable.afterUseDescription);
+                    Core.Write(equipable.afterUseDescription, console, Color.White);
                     itemInsideBag.isEquiped = true;
                     checkStatAndIncrease(equipable.statToIncrease, equipable, this);//non tested
                     bag.Remove(equipable);
                     bag.Insert(index, itemInsideBag);
                 }
                 else
-                    Core.Write("Item is already equiped");//else it's already equiped
+                    Core.Write("Item is already equiped", console, Color.White);//else it's already equiped
 
             }
             else
-                Core.Write("Item is not equipable/in bag");
+                Core.Write("Item is not equipable/in bag", console, Color.White);
         }
 
 
@@ -176,17 +180,17 @@ namespace RPGTextGame
 
         public virtual void LookItem(UsableItem usable)
         {
-            Core.Write(usable.description, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+            Core.Write(usable.description,console, Color.AliceBlue);
         }
         public void LookSelf()
         {
-            Core.Write(this.description, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+            Core.Write(this.description, console, Color.AliceBlue);
         }
         public void UseItem(UsableItem usable)
         {
             if (usable.isUsable/*also has to check if it is in the bag*/)
             {
-                Core.Write(usable.afterUseDescription, System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                Core.Write(usable.afterUseDescription, console, Color.AliceBlue);
 
                 checkStatAndIncrease(usable.statToIncrease, usable, this);
                 bag.Remove(usable);
@@ -194,7 +198,7 @@ namespace RPGTextGame
 
             }
             else
-                Core.Write("This Item is not usable", System.Drawing.Color.AliceBlue, UI.gameOutput, gameUI);
+                Core.Write("This Item is not usable", console, Color.AliceBlue);
         }
         public virtual void useAttack()
         {

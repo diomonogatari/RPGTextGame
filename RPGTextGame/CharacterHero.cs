@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace RPGTextGame
 {
     public class CharacterHero : AbstractCharacter
     {
 
-        public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, ConsoleColor Color) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Speed, Description, Experience, Color)
+        public CharacterHero(string Name, short HP, short Stamina, short AttackDamage, short MagicDamage, short Armor, short MagicResistence, short Luck, short INT, ushort Speed, string Description, int Experience, Color Color, ConsoleControl.ConsoleControl Console) : base(Name, HP, Stamina, AttackDamage, MagicDamage, Armor, MagicResistence, Luck, INT, Speed, Description, Experience, Color, Console)
         {
             abilityList = new List<Abilities>();
             equips = new List<EquipableItem>();
@@ -31,7 +32,7 @@ namespace RPGTextGame
 
             //returns the bag
             foreach (Item s in bag)
-                Core.Write(s.description);
+                Core.Write(s.description, console, Color.White);
             Equip(HermesShoes);
         }
 
@@ -43,7 +44,7 @@ namespace RPGTextGame
             #endregion 
 
             foreach (Abilities s in abilityList)
-                Core.Write(s.abilityName + " , " + s.description);
+                Core.Write(s.abilityName + " , " + s.description, console, Color.White);
             
         }
 
