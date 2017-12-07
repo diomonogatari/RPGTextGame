@@ -44,47 +44,47 @@ namespace RPGTextGame
                 case TypesOfStats.Armor:
                     character.armor += item.amountOfValueIncreased;
                     output += "Armor is now " + character.armor;
-                    Core.Write(output,console, Color.Blue);
+                    Core.Write(output,console, charColor);
                     break;
                 case TypesOfStats.HP:
                     character.health += item.amountOfValueIncreased;
                     output += "Health is now " + character.health;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.AttackDamage:
                     character.attackDamage += item.amountOfValueIncreased;
                     output += "Attack Damage is now " + character.attackDamage;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.MagicDamage:
                     character.magicDamage += item.amountOfValueIncreased;
                     output += "Magic Damage is now " + character.magicDamage;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.MagicResistence:
                     character.magicResistence += item.amountOfValueIncreased;
                     output += "Magic Resistence is now " + character.magicResistence;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.Stamina:
                     character.stamina += item.amountOfValueIncreased;
                     output += "Stamina is now " + character.stamina;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.Luck:
                     character.luck += item.amountOfValueIncreased;
                     output += "Luck is now " + character.luck;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.Intelligence:
                     character.intelligence += item.amountOfValueIncreased;
                     output += "Intelligence is now " + character.intelligence;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.Experience:
                     character.experience += item.amountOfValueIncreased;
                     output += "Experience is now " + character.experience;
-                    Core.Write(output, console, Color.Blue);
+                    Core.Write(output, console, charColor);
                     break;
                 case TypesOfStats.None:
                     break;//Should we say something?
@@ -180,17 +180,17 @@ namespace RPGTextGame
 
         public virtual void LookItem(UsableItem usable)
         {
-            Core.Write(usable.description,console, Color.AliceBlue);
+            Core.Write(usable.description,console, charColor);
         }
         public void LookSelf()
         {
-            Core.Write(this.description, console, Color.AliceBlue);
+            Core.Write(this.description, console, charColor);
         }
         public void UseItem(UsableItem usable)
         {
             if (usable.isUsable/*also has to check if it is in the bag*/)
             {
-                Core.Write(usable.afterUseDescription, console, Color.AliceBlue);
+                Core.Write(usable.afterUseDescription, console, charColor);
 
                 checkStatAndIncrease(usable.statToIncrease, usable, this);
                 bag.Remove(usable);
@@ -198,7 +198,7 @@ namespace RPGTextGame
 
             }
             else
-                Core.Write("This Item is not usable", console, Color.AliceBlue);
+                Core.Write("This Item is not usable", console, charColor);
         }
         public virtual void useAttack()
         {

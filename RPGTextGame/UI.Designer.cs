@@ -33,8 +33,9 @@
             this.btn4 = new System.Windows.Forms.Button();
             this.btn3 = new System.Windows.Forms.Button();
             this.btn2 = new System.Windows.Forms.Button();
-            this.bckWorker = new System.ComponentModel.BackgroundWorker();
+            this.thrButtons = new System.ComponentModel.BackgroundWorker();
             this.consoleDialog = new ConsoleControl.ConsoleControl();
+            this.thrLeaveGame = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // btn1
@@ -45,7 +46,7 @@
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(208, 52);
             this.btn1.TabIndex = 0;
-            this.btn1.Text = "Opt 1";
+            this.btn1.Text = "Look at yourself";
             this.btn1.UseVisualStyleBackColor = true;
             this.btn1.Click += new System.EventHandler(this.btn1_Click);
             // 
@@ -57,7 +58,7 @@
             this.btn4.Name = "btn4";
             this.btn4.Size = new System.Drawing.Size(178, 52);
             this.btn4.TabIndex = 1;
-            this.btn4.Text = "Opt 4";
+            this.btn4.Text = "Use Item";
             this.btn4.UseVisualStyleBackColor = true;
             this.btn4.Click += new System.EventHandler(this.btn4_Click);
             // 
@@ -85,10 +86,10 @@
             this.btn2.UseVisualStyleBackColor = true;
             this.btn2.Click += new System.EventHandler(this.btn2_Click);
             // 
-            // bckWorker
+            // thrButtons
             // 
-            this.bckWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bckWorker_DoWork);
-            this.bckWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bckWorker_RunWorkerCompleted);
+            this.thrButtons.DoWork += new System.ComponentModel.DoWorkEventHandler(this.thrButtons_DoWork);
+            this.thrButtons.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.thrButtons_RunWorkerCompleted);
             // 
             // consoleDialog
             // 
@@ -99,6 +100,11 @@
             this.consoleDialog.ShowDiagnostics = false;
             this.consoleDialog.Size = new System.Drawing.Size(772, 386);
             this.consoleDialog.TabIndex = 6;
+            // 
+            // thrLeaveGame
+            // 
+            this.thrLeaveGame.DoWork += new System.ComponentModel.DoWorkEventHandler(this.thrLeaveGame_DoWork);
+            this.thrLeaveGame.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.thrLeaveGame_RunWorkerCompleted);
             // 
             // UI
             // 
@@ -131,7 +137,8 @@
         private System.Windows.Forms.Button btn4;
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn3;
-        private System.ComponentModel.BackgroundWorker bckWorker;
+        private System.ComponentModel.BackgroundWorker thrButtons;
         private ConsoleControl.ConsoleControl consoleDialog;
+        private System.ComponentModel.BackgroundWorker thrLeaveGame;
     }
 }

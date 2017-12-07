@@ -19,8 +19,9 @@ namespace RPGTextGame
         public static Color buttonBackColor = Color.Black;
         public static Color colorOfTextToPaint = Color.AliceBlue;
         public static string textThatWasChoosenToWrite = "";
-        public bool escWasPressed = false;
-        
+        public bool userWantsToLeave = false;
+        CharacterHero hero;
+
 
 
 
@@ -30,6 +31,8 @@ namespace RPGTextGame
 
             this.FormBorderStyle = FormBorderStyle.None;//Makes it "fullscreen"
             this.KeyPreview = true;
+
+            hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, 10, "Your clothes are filthy, and there's cuts and blood all over your body", 0, Color.Red, consoleDialog);
 
 
 
@@ -50,7 +53,7 @@ namespace RPGTextGame
 
         }
 
-
+        #region UI events
         private void UI_Load(object sender, EventArgs e)
         {
             UIDrawing();
@@ -65,8 +68,8 @@ namespace RPGTextGame
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to leave?", "Exit", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    escWasPressed = true;
-                    bckWorker.RunWorkerAsync("Esc");
+                    userWantsToLeave = true;
+                    thrLeaveGame.RunWorkerAsync();
                 }
             }
             if (e.KeyCode == Keys.F1)
@@ -74,6 +77,7 @@ namespace RPGTextGame
             if (e.KeyCode == Keys.F5)
                 consoleDialog.ClearOutput();
         }
+        #endregion
 
 
 
@@ -101,7 +105,7 @@ namespace RPGTextGame
             int numberOfButtons = howManyButtons(this);
 
             consoleDialog.Font = new Font(consoleDialog.Font.FontFamily, 20);
-            
+
 
 
             this.BackColor = Color.Black;
@@ -151,50 +155,48 @@ namespace RPGTextGame
         private void btn1_Click(object sender, EventArgs e)
         {
             changeButtonsEnabledTo(false);
-            
-            
-            bckWorker.RunWorkerAsync("Opt 1");
+            thrButtons.RunWorkerAsync("Opt 1");
         }
         private void btn2_Click(object sender, EventArgs e)
         {
             changeButtonsEnabledTo(false);
-            bckWorker.RunWorkerAsync("Opt 2");
+            thrButtons.RunWorkerAsync("Opt 2");
         }
         private void btn3_Click(object sender, EventArgs e)
         {
             changeButtonsEnabledTo(false);
-            bckWorker.RunWorkerAsync("Opt 3");
+            thrButtons.RunWorkerAsync("Opt 3");
         }
         private void btn4_Click(object sender, EventArgs e)
         {
             changeButtonsEnabledTo(false);
-            bckWorker.RunWorkerAsync("Opt 4");
+            thrButtons.RunWorkerAsync("Opt 4");
         }
         #endregion
 
 
-        #region Background thread
-        private void bckWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        #region Background threads
+
+        #region Buttons Thread
+        private void thrButtons_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (escWasPressed)
-                this.Close();
+
             changeButtonsEnabledTo(true);
 
 
         }
 
-        private void bckWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void thrButtons_DoWork(object sender, DoWorkEventArgs e)
         {
-
             var debug = sender.GetType();
             switch (e.Argument.ToString())
             {
                 case "Opt 1":
-                    Core.Write("this is button 1, it writes a fast text", consoleDialog, Color.Red,  1);
+                    hero.LookSelf();
 
                     break;
                 case "Opt 2":
-                    Core.Write("this is button 2, it writes a medium speed text", consoleDialog, Color.Green,30);
+                    Core.Write("this is button 2, it writes a medium speed text", consoleDialog, Color.Green, 30);
 
                     break;
                 case "Opt 3":
@@ -202,17 +204,27 @@ namespace RPGTextGame
 
                     break;
                 case "Opt 4":
-                    Core.Write("this is button 4, it writes a really sloooooow text", consoleDialog, Color.White,  70);
+                    hero.UseItem(new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100));
 
                     break;
-                case "Esc":
-                    killProcces();
-                    break;
                 default:
-                    Core.Write("ERROR",consoleDialog, Color.White,  10);
+                    Core.Write("ERROR", consoleDialog, Color.White, 10);
                     break;
             }
         }
+        #endregion
+
+        #region Leaving Thread
+        private void thrLeaveGame_DoWork(object sender, DoWorkEventArgs e)
+        {
+            killProcces();
+        }
+        private void thrLeaveGame_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
+
         #endregion
 
 

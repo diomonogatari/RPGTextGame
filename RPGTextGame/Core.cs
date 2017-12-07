@@ -43,14 +43,6 @@ namespace RPGTextGame
             }
             console.WriteOutput("\n",color);
         }
-
-
-
-
-
-
-
-
         ////Deprecated
         //public static String Read()
         //{
