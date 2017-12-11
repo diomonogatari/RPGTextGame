@@ -688,8 +688,10 @@ namespace RPGTextGame
 
             //    Thread.Sleep(3);
             //}
-            CharacterHero hero = new CharacterHero("Gervásio", 1233, 1332, 1332, 1332, 1332, 12332, /*Luck is here*/ 1, 1233, "Descriçao", 41241412, ConsoleColor.Red);
-            string path = $@"C:\Users\xatna35\Desktop\RNGTestResults_Luck{hero.luck}.txt";
+            CharacterHero hero = new CharacterHero("Gervásio", 1233, 1332, 1332, 1332, 1332, 12332, /*Luck is here*/ 9, 1233, "Descriçao", 41241412, ConsoleColor.Red);
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string path = System.IO.Path.Combine(desktop, $"RNGTestResults_Luck{hero.luck}.txt");
+            
 
             //Bitmap bmpSrc = new Bitmap(@"C:\Users\xatna35\Desktop\mona.jpg", true);
             //ConsoleWriteImage(bmpSrc);
