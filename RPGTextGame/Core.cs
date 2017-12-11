@@ -4,19 +4,108 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Threading;
+using System.Drawing;
 
 
 namespace RPGTextGame
 {
     public enum TypesOfStats { HP, AttackDamage, MagicDamage, Armor, MagicResistence, Stamina, Luck, Intelligence, Experience, None, Invalid }
 
+
     class Core
     {
+        #region Debug Methods
+        static void logChanceResults(string path, CharacterHero hero)
+        {
+            if (!File.Exists(path))
+            {
+                File.Create(path);
+                TextWriter tw = new StreamWriter(path);
+                tw.WriteLine(GameMechanics.DetermineChanceLevel(hero));
+                tw.Close();
+            }
+            else if (File.Exists(path))
+            {
+                using (var tw = new StreamWriter(path, true))
+                {
+                    tw.WriteLine(GameMechanics.DetermineChanceLevel(hero));
+                    tw.Close();
+                }
+            }
+        }
+        #endregion
+
+
+
+        #region asdasa
+        static int[] cColors = { 0x000000, 0x000080, 0x008000, 0x008080, 0x800000, 0x800080, 0x808000, 0xC0C0C0, 0x808080, 0x0000FF, 0x00FF00, 0x00FFFF, 0xFF0000, 0xFF00FF, 0xFFFF00, 0xFFFFFF };
+
+        public static void ConsoleWritePixel(Color cValue)
+        {
+            Color[] cTable = cColors.Select(x => Color.FromArgb(x)).ToArray();
+            char[] rList = new char[] { (char)9617, (char)9618, (char)9619, (char)9608 }; // 1/4, 2/4, 3/4, 4/4
+            int[] bestHit = new int[] { 0, 0, 4, int.MaxValue }; //ForeColor, BackColor, Symbol, Score
+
+            for (int rChar = rList.Length; rChar > 0; rChar--)
+            {
+                for (int cFore = 0; cFore < cTable.Length; cFore++)
+                {
+                    for (int cBack = 0; cBack < cTable.Length; cBack++)
+                    {
+                        int R = (cTable[cFore].R * rChar + cTable[cBack].R * (rList.Length - rChar)) / rList.Length;
+                        int G = (cTable[cFore].G * rChar + cTable[cBack].G * (rList.Length - rChar)) / rList.Length;
+                        int B = (cTable[cFore].B * rChar + cTable[cBack].B * (rList.Length - rChar)) / rList.Length;
+                        int iScore = (cValue.R - R) * (cValue.R - R) + (cValue.G - G) * (cValue.G - G) + (cValue.B - B) * (cValue.B - B);
+                        if (!(rChar > 1 && rChar < 4 && iScore > 50000)) // rule out too weird combinations
+                        {
+                            if (iScore < bestHit[3])
+                            {
+                                bestHit[3] = iScore; //Score
+                                bestHit[0] = cFore;  //ForeColor
+                                bestHit[1] = cBack;  //BackColor
+                                bestHit[2] = rChar;  //Symbol
+                            }
+                        }
+                    }
+                }
+            }
+            Console.ForegroundColor = (ConsoleColor)bestHit[0];
+            Console.BackgroundColor = (ConsoleColor)bestHit[1];
+            Console.Write(rList[bestHit[2] - 1]);
+        }
+
+
+        public static void ConsoleWriteImage(Bitmap source)
+        {
+            int sMax = 39;
+            decimal percent = Math.Min(decimal.Divide(sMax, source.Width), decimal.Divide(sMax, source.Height));
+            Size dSize = new Size((int)(source.Width * percent), (int)(source.Height * percent));
+            Bitmap bmpMax = new Bitmap(source, dSize.Width * 2, dSize.Height);
+            for (int i = 0; i < dSize.Height; i++)
+            {
+                for (int j = 0; j < dSize.Width; j++)
+                {
+                    ConsoleWritePixel(bmpMax.GetPixel(j * 2, i));
+                    ConsoleWritePixel(bmpMax.GetPixel(j * 2 + 1, i));
+                }
+                System.Console.WriteLine();
+            }
+            Console.ResetColor();
+        }
+
+
+        #endregion
+
+
+
+
+
 
         static string command;
-
-        static List<string> commandList = new List<string> { "walk","hike","stroll","march","stride","step",
+        public static ConsoleColor narratorColor = ConsoleColor.White;
+        static List<string> commandList = new List<string> { "walk","hike","stroll","march","stride",
             "run","dart","dash","rush","sprint","escape","spurt","flight","jog",
             "talk","chat","communicate","say","speak","tell","articulate","chatter","converse","utter","voice","pronounce","verbalize",
             "sell",
@@ -24,8 +113,8 @@ namespace RPGTextGame
             "look","glance","notice","see","stare","study","watch","admire","behold","beware","contemplate","focus","gaze","inspect","observe","scan","survey",
             "use","consume","apply","spend","wield","ply","expend",
             "fight","attack","battle","challenge","clash","meet","assault","bicker","brawl","contend","dispute","duel","feud","joust","quarrel","skirmish","spar","war","wrestle","tussle","wrangle",
-            "explore","delve into","probe","scout","travel","traverse","reconnoitre","inspect",
-            "give","award","deliver","donate","grant","hand over","hand out","present","hand over","provide","cede","entrust","gift","lease","relinquish"
+            "explore","delve into","probe","scout","travel","traverse","reconnoitre",
+            "give","award","deliver","donate","grant","hand over","hand out","present","provide","cede","entrust","gift","lease","relinquish"
         };
 
         #region Static Methods
@@ -53,17 +142,7 @@ namespace RPGTextGame
             }
             Console.Write("\n");
         }
-        public static void checkUserInput(string input)
-        {
-            if (!isInputValidCommand(input))
-                Core.Write("Was that a typo?");
-            else
-            {
-                
-            }
-            
 
-        }
 
         public static bool isInputValidCommand(string input)
         {
@@ -71,6 +150,472 @@ namespace RPGTextGame
                 if (i.Equals(input.ToLower()))
                     return true;
             return false;
+        }
+
+        public static void checkUserInput(string input, CharacterHero hero)
+        {
+            input.ToLower();
+            if (!isInputValidCommand(input))
+                Core.Write("Was that a typo?");
+            else
+            {
+                ExecuteCommand(input, hero);
+            }
+
+
+        }
+
+        public static void ExecuteCommand(string command, CharacterHero hero)
+        {
+            switch (command.ToLower())
+            {
+                #region Walking
+                //Undirectional walking
+                case "walk":
+                case "hike":
+                case "stroll":
+                case "march":
+                case "stride":
+                    //Todo relocate the step and place it in "Step in, Step out" scenarios case //"step":
+                    Core.Write("Which way?", narratorColor);
+                    switch (Core.Read().ToLower())
+                    {
+                        #region Absolute directions
+                        case "north":
+                        case "northward":
+                        case "northwards":
+                            break;
+                        case "south":
+                        case "southward":
+                        case "southwards":
+                            break;
+                        case "east":
+                        case "eastward":
+                        case "eastwards":
+                        case "orient":
+                            break;
+                        case "west":
+                        case "westward":
+                        case "westwards":
+                        case "occident":
+                            break;
+                        #endregion
+
+                        #region Relative directions
+                        //forward
+                        case "forwards":
+                        case "forward":
+                        case "ahead":
+                        case "onward":
+                        case "forth":
+                        case "along":
+                        case "in front":
+                        case "front":
+                            break;
+                        //back
+                        case "backwards":
+                        case "backward":
+                        case "rearward":
+                        case "rearwards":
+                            break;
+                        //left
+                        case "leftwards":
+                        case "leftward":
+                        case "left":
+                            break;
+                        //right
+                        case "rightwards":
+                        case "rightward":
+                        case "right":
+                            break;
+                        #endregion
+
+                        #region Up Down directions
+                        case "up":
+                        case "upward":
+                        case "upwards":
+                        case "skywards":
+                        case "skyward":
+                            break;
+                        case "down":
+                        case "downwards":
+                        case "downward":
+                        case "earthward":
+                        case "earthwards":
+                            break;
+                        #endregion
+
+                        default:
+                            Core.Write("What kind of direction is that?", narratorColor);
+                            break;
+                    }
+                    break;
+
+                //Directional walking
+                #region Absolute directions
+                case "walk north":
+                case "walk northward":
+                case "walk northwards":
+                case "hike north":
+                case "hike northward":
+                case "hike northwards":
+                case "stroll north":
+                case "stroll northward":
+                case "stroll northwards":
+                case "march north":
+                case "march northward":
+                case "march northwards":
+                case "stride north":
+                case "stride northward":
+                case "stride northwards":
+                    break;
+                case "walk south":
+                case "walk southward":
+                case "walk southwards":
+                case "hike south":
+                case "hike southward":
+                case "hike southwards":
+                case "stroll south":
+                case "stroll southward":
+                case "stroll southwards":
+                case "march south":
+                case "march southward":
+                case "march southwards":
+                case "stride south":
+                case "stride southward":
+                case "stride southwards":
+                    break;
+                case "walk east":
+                case "walk eastward":
+                case "walk eastwards":
+                case "walk orient":
+                case "hike east":
+                case "hike eastward":
+                case "hike eastwards":
+                case "hike orient":
+                case "stroll east":
+                case "stroll eastward":
+                case "stroll eastwards":
+                case "stroll orient":
+                case "march east":
+                case "march eastward":
+                case "march eastwards":
+                case "march orient":
+                case "stride east":
+                case "stride eastward":
+                case "stride eastwards":
+                case "stride orient":
+                    break;
+                case "walk west":
+                case "walk westward":
+                case "walk westwards":
+                case "walk occident":
+                case "hike west":
+                case "hike westward":
+                case "hike westwards":
+                case "hike occident":
+                case "stroll west":
+                case "stroll westward":
+                case "stroll westwards":
+                case "stroll occident":
+                case "march west":
+                case "march westward":
+                case "march westwards":
+                case "march occident":
+                case "stride west":
+                case "stride westward":
+                case "stride westwards":
+                case "stride occident":
+                    break;
+                #endregion
+
+                #region Relative directions
+                //forward
+                case "walk forwards":
+                case "walk forward":
+                case "walk ahead":
+                case "walk onward":
+                case "walk forth":
+                case "walk along":
+                case "walk in front":
+                case "walk front":
+                case "hike forwards":
+                case "hike forward":
+                case "hike ahead":
+                case "hike onward":
+                case "hike forth":
+                case "hike along":
+                case "hike in front":
+                case "hike front":
+                case "stroll forwards":
+                case "stroll forward":
+                case "stroll ahead":
+                case "stroll onward":
+                case "stroll forth":
+                case "stroll along":
+                case "stroll in front":
+                case "stroll front":
+                case "march forwards":
+                case "march forward":
+                case "march ahead":
+                case "march onward":
+                case "march forth":
+                case "march along":
+                case "march in front":
+                case "march front":
+                case "stride forwards":
+                case "stride forward":
+                case "stride ahead":
+                case "stride onward":
+                case "stride forth":
+                case "stride along":
+                case "stride in front":
+                case "stride front":
+                    break;
+                //back
+                case "walk backwards":
+                case "walk backward":
+                case "walk rearward":
+                case "walk rearwards":
+                case "hike backwards":
+                case "hike backward":
+                case "hike rearward":
+                case "hike rearwards":
+                case "stroll backwards":
+                case "stroll backward":
+                case "stroll rearward":
+                case "stroll rearwards":
+                case "march backwards":
+                case "march backward":
+                case "march rearward":
+                case "march rearwards":
+                case "stride backwards":
+                case "stride backward":
+                case "stride rearward":
+                case "stride rearwards":
+                    break;
+                //left
+                case "walk leftwards":
+                case "walk leftward":
+                case "walk left":
+                case "hike leftwards":
+                case "hike leftward":
+                case "hike left":
+                case "stroll leftwards":
+                case "stroll leftward":
+                case "stroll left":
+                case "march leftwards":
+                case "march leftward":
+                case "march left":
+                case "stride leftwards":
+                case "stride leftward":
+                case "stride left":
+                    break;
+                //right
+                case "walk rightwards":
+                case "walk rightward":
+                case "walk right":
+                case "hike rightwards":
+                case "hike rightward":
+                case "hike right":
+                case "stroll rightwards":
+                case "stroll rightward":
+                case "stroll right":
+                case "march rightwards":
+                case "march rightward":
+                case "march right":
+                case "stride rightwards":
+                case "stride rightward":
+                case "stride right":
+                    break;
+                #endregion
+
+                #region Up Down directions
+                case "walk up":
+                case "walk upward":
+                case "walk upwards":
+                case "walk skywards":
+                case "walk skyward":
+                case "hike up":
+                case "hike upward":
+                case "hike upwards":
+                case "hike skywards":
+                case "hike skyward":
+                case "stroll up":
+                case "stroll upward":
+                case "stroll upwards":
+                case "stroll skywards":
+                case "stroll skyward":
+                case "march up":
+                case "march upward":
+                case "march upwards":
+                case "march skywards":
+                case "march skyward":
+                case "stride up":
+                case "stride upward":
+                case "stride upwards":
+                case "stride skywards":
+                case "stride skyward":
+                    break;
+                case "walk down":
+                case "walk downwards":
+                case "walk downward":
+                case "walk earthward":
+                case "walk earthwards":
+                case "hike down":
+                case "hike downwards":
+                case "hike downward":
+                case "hike earthward":
+                case "hike earthwards":
+                case "stroll down":
+                case "stroll downwards":
+                case "stroll downward":
+                case "stroll earthward":
+                case "stroll earthwards":
+                case "march down":
+                case "march downwards":
+                case "march downward":
+                case "march earthward":
+                case "march earthwards":
+                case "stride down":
+                case "stride downwards":
+                case "stride downward":
+                case "stride earthward":
+                case "stride earthwards":
+                    break;
+                #endregion
+
+                #endregion
+
+                #region Running
+                case "run":
+                case "dart":
+                case "dash":
+                case "rush":
+                case "sprint":
+                case "escape":
+                case "spurt":
+                case "flight":
+                case "jog":
+                    break;
+                #endregion
+                #region Dialog
+                case "talk":
+                case "chat":
+                case "communicate":
+                case "say":
+                case "speak":
+                case "tell":
+                case "articulate":
+                case "chatter":
+                case "converse":
+                case "utter":
+                case "voice":
+                case "pronounce":
+                case "verbalize":
+                    break;
+                #endregion
+
+                case "sell":
+                    break;
+
+                #region Buying
+                case "buy":
+                case "get":
+                case "obtain":
+                case "purchase":
+                case "take":
+                case "acquire":
+                    break;
+                #endregion
+
+                #region Environment inspection
+                case "look":
+                case "glance":
+                case "notice":
+                case "see":
+                case "stare":
+                case "study":
+                case "watch":
+                case "admire":
+                case "behold":
+                case "beware":
+                case "contemplate":
+                case "focus":
+                case "gaze":
+                case "inspect":
+                case "observe":
+                case "scan":
+                case "survey":
+                    break;
+                #endregion
+
+                #region  Use stuff
+                case "use":
+                case "consume":
+                case "apply":
+                case "spend":
+                case "wield":
+                case "ply":
+                case "expend":
+                    break;
+                #endregion
+
+                #region Engage fight
+                case "fight":
+                case "attack":
+                case "battle":
+                case "challenge":
+                case "clash":
+                case "meet":
+                case "assault":
+                case "bicker":
+                case "brawl":
+                case "contend":
+                case "dispute":
+                case "duel":
+                case "feud":
+                case "joust":
+                case "quarrel":
+                case "skirmish":
+                case "spar":
+                case "war":
+                case "wrestle":
+                case "tussle":
+                case "wrangle":
+                    break;
+                #endregion
+
+                #region Scenario exploration
+                case "explore":
+                case "delve into":
+                case "probe":
+                case "scout":
+                case "travel":
+                case "traverse":
+                case "reconnoitre":
+                    break;
+                #endregion
+
+                #region Give items
+                case "give":
+                case "award":
+                case "deliver":
+                case "donate":
+                case "grant":
+                case "hand over":
+                case "hand out":
+                case "present":
+                case "provide":
+                case "cede":
+                case "entrust":
+                case "gift":
+                case "lease":
+                case "relinquish":
+                    break;
+
+                    #endregion
+            }
         }
 
         public static String Read()
@@ -114,34 +659,47 @@ namespace RPGTextGame
 
         static void Main(string[] args)
         {
-            CharacterHero hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
-            UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
+            //CharacterHero hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
+            //UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
 
-            EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30);
+            //EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30);
 
-            //Woods_1 explore = new Woods_1(hero);
-            //explore.Woodsini();
+            ////Woods_1 explore = new Woods_1(hero);
+            ////explore.Woodsini();
 
-            OpeningNarrative narrative = new OpeningNarrative(hero);
-            Console.WriteLine("Debug opening narrative complete\n--------------------------------------------------------------------------------------------------\n");
-            Console.Read();
-            Console.Clear();
-            narrative.Chapter1();
+            //OpeningNarrative narrative = new OpeningNarrative(hero);
+            //Console.WriteLine("Debug opening narrative complete\n--------------------------------------------------------------------------------------------------\n");
+            //Console.Read();
+            //Console.Clear();
+            //narrative.Chapter1();
 
-            while (!Console.KeyAvailable)
+            //while (!Console.KeyAvailable)
+            //{
+
+            //    command = Read().ToLower();
+            //    if (command == "show bag")
+            //        hero.ShowBag();
+            //    if (command == "look self")
+            //        hero.LookSelf();
+            //    if (command == "look item")
+            //        hero.LookItem(HealthPotion);
+            //    if (command == "use item")
+            //        hero.UseItem(HealthPotion);
+
+            //    Thread.Sleep(3);
+            //}
+            CharacterHero hero = new CharacterHero("Gervásio", 1233, 1332, 1332, 1332, 1332, 12332, /*Luck is here*/ 1, 1233, "Descriçao", 41241412, ConsoleColor.Red);
+            string path = $@"C:\Users\xatna35\Desktop\RNGTestResults_Luck{hero.luck}.txt";
+
+            //Bitmap bmpSrc = new Bitmap(@"C:\Users\xatna35\Desktop\mona.jpg", true);
+            //ConsoleWriteImage(bmpSrc);
+            while (true)
             {
 
-                command = Read().ToLower();
-                if (command == "show bag")
-                    hero.ShowBag();
-                if (command == "look self")
-                    hero.LookSelf();
-                if (command == "look item")
-                    hero.LookItem(HealthPotion);
-                if (command == "use item")
-                    hero.UseItem(HealthPotion);
 
-                Thread.Sleep(3);
+                logChanceResults(path, hero);
+
+                Thread.Sleep(1);
             }
         }
 

@@ -17,49 +17,51 @@ namespace RPGTextGame
         {
 
         }
-        //RNG IS A BIG SPAGHETTI CODE ATM
 
-        public static String DetermineChanceLevel(/*short luckOnDetermine, CharacterHero hero/*/)
+        public static String DetermineChanceLevel(CharacterHero hero)
         {
 
             Thread.Sleep(1);
             outputGenerated = seedGenerator.Next(1001);
 
-            //if (outputGenerated >= 50 && outputGenerated + luckOnDetermine < 100)
-            //{
-            //    //if(outputGenerated+luck > 100) if we want to be scumbags
-            //    //{
-            //    //    return 100;
-            //    //}
+            #region Limits of change regions
+            int badLowerLimit = (int)(100 - (hero.luck * 1.5)) <= 0 ? 1 : (int)(100 - (hero.luck * 1.5));
+            int badUpperLimit = (int)(900 + (hero.luck * 1.5)) >= 1000 ? 999 : (int)(900 + (hero.luck * 1.5));
 
-            //    outputGenerated += luckOnDetermine;
-            //}
-            //if (outputGenerated <= 50 && outputGenerated - luckOnDetermine > 0)
-            //    outputGenerated -= luckOnDetermine;
+            int neutralLowerLimit = (badLowerLimit + 200) - hero.luck;
+            int neutralUpperLimit = (badUpperLimit - 200) + hero.luck;
+
+            int goodLowerLimit = (neutralLowerLimit + 150) - hero.luck;
+            int goodUpperLimit = (neutralUpperLimit - 150) + hero.luck;
+
+            int greatLowerLimit = (goodLowerLimit + 90) - hero.luck / 2;
+            int greatUpperLimit = (goodUpperLimit - 90) + hero.luck / 2;
+
+            if (greatUpperLimit - greatLowerLimit <= 0)
+            {
+                greatLowerLimit = 494;
+                greatUpperLimit = 505;
+            }
 
 
-
-
-
-
-
+            #endregion
 
 
 
 
             if (outputGenerated == -1)
                 return "There was an error with the RNG";
-            if (outputGenerated >= 0 && outputGenerated <= 139 || outputGenerated <= 1000 && outputGenerated >= 870)
+            if (outputGenerated >= 0 && outputGenerated <= badLowerLimit || outputGenerated <= 1000 && outputGenerated >= badUpperLimit)
                 return "bad";
-            if (outputGenerated >= 140 && outputGenerated <= 409 || outputGenerated <= 869 && outputGenerated >= 600)
+            if (outputGenerated > badLowerLimit && outputGenerated <= neutralLowerLimit || outputGenerated < badUpperLimit && outputGenerated >= neutralUpperLimit)
                 return "neutral";
-            if (outputGenerated >= 410 && outputGenerated <= 489 || outputGenerated <= 599 && outputGenerated >= 530)
+            if (outputGenerated > neutralLowerLimit && outputGenerated <= goodLowerLimit || outputGenerated < neutralUpperLimit && outputGenerated >= goodUpperLimit)
                 return "good";
-            if (outputGenerated >= 490 && outputGenerated <= 500 || outputGenerated <= 529 && outputGenerated >= 506)
+            if (outputGenerated > goodLowerLimit && outputGenerated <= greatLowerLimit || outputGenerated < goodUpperLimit && outputGenerated >= greatUpperLimit)
                 return "great";
-            if (outputGenerated >= 501 && outputGenerated <= 505)
+            if (outputGenerated > greatLowerLimit && outputGenerated < greatUpperLimit)
                 return "Legendary";
-            return new Exception("Value of chance cannot be determined").ToString();
+            return new Exception($"Value of chance cannot be determined(Value of output: {outputGenerated}").ToString();
         }
     }
 }
