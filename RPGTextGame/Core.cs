@@ -37,9 +37,7 @@ namespace RPGTextGame
         }
         #endregion
 
-
-
-        #region asdasa
+        #region Images in console
         static int[] cColors = { 0x000000, 0x000080, 0x008000, 0x008080, 0x800000, 0x800080, 0x808000, 0xC0C0C0, 0x808080, 0x0000FF, 0x00FF00, 0x00FFFF, 0xFF0000, 0xFF00FF, 0xFFFF00, 0xFFFFFF };
 
         public static void ConsoleWritePixel(Color cValue)
@@ -99,10 +97,6 @@ namespace RPGTextGame
         #endregion
 
 
-
-
-
-
         static string command;
         public static ConsoleColor narratorColor = ConsoleColor.White;
         static List<string> commandList = new List<string> { "walk","hike","stroll","march","stride",
@@ -114,7 +108,246 @@ namespace RPGTextGame
             "use","consume","apply","spend","wield","ply","expend",
             "fight","attack","battle","challenge","clash","meet","assault","bicker","brawl","contend","dispute","duel","feud","joust","quarrel","skirmish","spar","war","wrestle","tussle","wrangle",
             "explore","delve into","probe","scout","travel","traverse","reconnoitre",
-            "give","award","deliver","donate","grant","hand over","hand out","present","provide","cede","entrust","gift","lease","relinquish"
+            "give","award","deliver","donate","grant","hand over","hand out","present","provide","cede","entrust","gift","lease","relinquish",
+
+                  #region Absolute directions
+                 "walk north",
+                 "walk northward",
+                 "walk northwards",
+                 "hike north",
+                 "hike northward",
+                 "hike northwards",
+                 "stroll north",
+                 "stroll northward",
+                 "stroll northwards",
+                 "march north",
+                 "march northward",
+                 "march northwards",
+                 "stride north",
+                 "stride northward",
+                 "stride northwards",
+
+                 "walk south",
+                 "walk southward",
+                 "walk southwards",
+                 "hike south",
+                 "hike southward",
+                 "hike southwards",
+                 "stroll south",
+                 "stroll southward",
+                 "stroll southwards",
+                 "march south",
+                 "march southward",
+                 "march southwards",
+                 "stride south",
+                 "stride southward",
+                 "stride southwards",
+
+                 "walk east",
+                 "walk eastward",
+                 "walk eastwards",
+                 "walk orient",
+                 "hike east",
+                 "hike eastward",
+                 "hike eastwards",
+                 "hike orient",
+                 "stroll east",
+                 "stroll eastward",
+                 "stroll eastwards",
+                 "stroll orient",
+                 "march east",
+                 "march eastward",
+                 "march eastwards",
+                 "march orient",
+                 "stride east",
+                 "stride eastward",
+                 "stride eastwards",
+                 "stride orient",
+
+                 "walk west",
+                 "walk westward",
+                 "walk westwards",
+                 "walk occident",
+                 "hike west",
+                 "hike westward",
+                 "hike westwards",
+                 "hike occident",
+                 "stroll west",
+                 "stroll westward",
+                 "stroll westwards",
+                 "stroll occident",
+                 "march west",
+                 "march westward",
+                 "march westwards",
+                 "march occident",
+                 "stride west",
+                 "stride westward",
+                 "stride westwards",
+                 "stride occident",
+
+                #endregion
+
+                  #region Relative directions
+                //forward
+                 "walk forwards",
+                 "walk forward",
+                 "walk ahead",
+                 "walk onward",
+                 "walk forth",
+                 "walk along",
+                 "walk in front",
+                 "walk front",
+                 "hike forwards",
+                 "hike forward",
+                 "hike ahead",
+                 "hike onward",
+                 "hike forth",
+                 "hike along",
+                 "hike in front",
+                 "hike front",
+                 "stroll forwards",
+                 "stroll forward",
+                 "stroll ahead",
+                 "stroll onward",
+                 "stroll forth",
+                 "stroll along",
+                 "stroll in front",
+                 "stroll front",
+                 "march forwards",
+                 "march forward",
+                 "march ahead",
+                 "march onward",
+                 "march forth",
+                 "march along",
+                 "march in front",
+                 "march front",
+                 "stride forwards",
+                 "stride forward",
+                 "stride ahead",
+                 "stride onward",
+                 "stride forth",
+                 "stride along",
+                 "stride in front",
+                 "stride front",
+                //back
+                 "walk backwards",
+                 "walk backward",
+                 "walk rearward",
+                 "walk rearwards",
+                 "hike backwards",
+                 "hike backward",
+                 "hike rearward",
+                 "hike rearwards",
+                 "stroll backwards",
+                 "stroll backward",
+                 "stroll rearward",
+                 "stroll rearwards",
+                 "march backwards",
+                 "march backward",
+                 "march rearward",
+                 "march rearwards",
+                 "stride backwards",
+                 "stride backward",
+                 "stride rearward",
+                 "stride rearwards",
+
+                //left
+                 "walk leftwards",
+                 "walk leftward",
+                 "walk left",
+                 "hike leftwards",
+                 "hike leftward",
+                 "hike left",
+                 "stroll leftwards",
+                 "stroll leftward",
+                 "stroll left",
+                 "march leftwards",
+                 "march leftward",
+                 "march left",
+                 "stride leftwards",
+                 "stride leftward",
+                 "stride left",
+
+                //right
+                 "walk rightwards",
+                 "walk rightward",
+                 "walk right",
+                 "hike rightwards",
+                 "hike rightward",
+                 "hike right",
+                 "stroll rightwards",
+                 "stroll rightward",
+                 "stroll right",
+                 "march rightwards",
+                 "march rightward",
+                 "march right",
+                 "stride rightwards",
+                 "stride rightward",
+                 "stride right",
+
+                #endregion
+
+                  #region Up Down directions
+                 "walk up",
+                 "walk upward",
+                 "walk upwards",
+                 "walk skywards",
+                 "walk skyward",
+                 "hike up",
+                 "hike upward",
+                 "hike upwards",
+                 "hike skywards",
+                 "hike skyward",
+                 "stroll up",
+                 "stroll upward",
+                 "stroll upwards",
+                 "stroll skywards",
+                 "stroll skyward",
+                 "march up",
+                 "march upward",
+                 "march upwards",
+                 "march skywards",
+                 "march skyward",
+                 "stride up",
+                 "stride upward",
+                 "stride upwards",
+                 "stride skywards",
+                 "stride skyward",
+
+                 "walk down",
+                 "walk downwards",
+                 "walk downward",
+                 "walk earthward",
+                 "walk earthwards",
+                 "hike down",
+                 "hike downwards",
+                 "hike downward",
+                 "hike earthward",
+                 "hike earthwards",
+                 "stroll down",
+                 "stroll downwards",
+                 "stroll downward",
+                 "stroll earthward",
+                 "stroll earthwards",
+                 "march down",
+                 "march downwards",
+                 "march downward",
+                 "march earthward",
+                 "march earthwards",
+                 "stride down",
+                 "stride downwards",
+                 "stride downward",
+                 "stride earthward",
+                 "stride earthwards",
+
+                #endregion
+
+
+
+
+
+
+
         };
 
         #region Static Methods
@@ -152,7 +385,7 @@ namespace RPGTextGame
             return false;
         }
 
-        public static void checkUserInput(string input, CharacterHero hero)
+        public static void checkUserInput(string input, CharacterHero hero) //call this when you want to read a command from User
         {
             input.ToLower();
             if (!isInputValidCommand(input))
@@ -178,26 +411,31 @@ namespace RPGTextGame
                 case "stride":
                     //Todo relocate the step and place it in "Step in, Step out" scenarios case //"step":
                     Core.Write("Which way?", narratorColor);
-                    switch (Core.Read().ToLower())
+                    string additionalCommand = Core.Read().ToLower();
+                    switch (additionalCommand)
                     {
                         #region Absolute directions
                         case "north":
                         case "northward":
                         case "northwards":
+                            Core.Write("You "+ command +" "+ additionalCommand);
                             break;
                         case "south":
                         case "southward":
                         case "southwards":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         case "east":
                         case "eastward":
                         case "eastwards":
                         case "orient":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         case "west":
                         case "westward":
                         case "westwards":
                         case "occident":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         #endregion
 
@@ -211,22 +449,26 @@ namespace RPGTextGame
                         case "along":
                         case "in front":
                         case "front":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         //back
                         case "backwards":
                         case "backward":
                         case "rearward":
                         case "rearwards":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         //left
                         case "leftwards":
                         case "leftward":
                         case "left":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         //right
                         case "rightwards":
                         case "rightward":
                         case "right":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         #endregion
 
@@ -236,12 +478,14 @@ namespace RPGTextGame
                         case "upwards":
                         case "skywards":
                         case "skyward":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         case "down":
                         case "downwards":
                         case "downward":
                         case "earthward":
                         case "earthwards":
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         #endregion
 
@@ -268,6 +512,7 @@ namespace RPGTextGame
                 case "stride north":
                 case "stride northward":
                 case "stride northwards":
+                    Core.Write("You " + command);
                     break;
                 case "walk south":
                 case "walk southward":
@@ -284,6 +529,7 @@ namespace RPGTextGame
                 case "stride south":
                 case "stride southward":
                 case "stride southwards":
+                    Core.Write("You " + command);
                     break;
                 case "walk east":
                 case "walk eastward":
@@ -305,6 +551,7 @@ namespace RPGTextGame
                 case "stride eastward":
                 case "stride eastwards":
                 case "stride orient":
+                    Core.Write("You " + command);
                     break;
                 case "walk west":
                 case "walk westward":
@@ -326,6 +573,7 @@ namespace RPGTextGame
                 case "stride westward":
                 case "stride westwards":
                 case "stride occident":
+                    Core.Write("You " + command);
                     break;
                 #endregion
 
@@ -371,6 +619,7 @@ namespace RPGTextGame
                 case "stride along":
                 case "stride in front":
                 case "stride front":
+                    Core.Write("You " + command);
                     break;
                 //back
                 case "walk backwards":
@@ -393,6 +642,7 @@ namespace RPGTextGame
                 case "stride backward":
                 case "stride rearward":
                 case "stride rearwards":
+                    Core.Write("You " + command);
                     break;
                 //left
                 case "walk leftwards":
@@ -410,6 +660,7 @@ namespace RPGTextGame
                 case "stride leftwards":
                 case "stride leftward":
                 case "stride left":
+                    Core.Write("You " + command);
                     break;
                 //right
                 case "walk rightwards":
@@ -427,6 +678,7 @@ namespace RPGTextGame
                 case "stride rightwards":
                 case "stride rightward":
                 case "stride right":
+                    Core.Write("You " + command);
                     break;
                 #endregion
 
@@ -456,6 +708,7 @@ namespace RPGTextGame
                 case "stride upwards":
                 case "stride skywards":
                 case "stride skyward":
+                    Core.Write("You " + command);
                     break;
                 case "walk down":
                 case "walk downwards":
@@ -482,6 +735,7 @@ namespace RPGTextGame
                 case "stride downward":
                 case "stride earthward":
                 case "stride earthwards":
+                    Core.Write("You " + command);
                     break;
                 #endregion
 
@@ -497,6 +751,7 @@ namespace RPGTextGame
                 case "spurt":
                 case "flight":
                 case "jog":
+                    Core.Write("You started to " + command);
                     break;
                 #endregion
                 #region Dialog
@@ -513,10 +768,12 @@ namespace RPGTextGame
                 case "voice":
                 case "pronounce":
                 case "verbalize":
+                    Core.Write("You decided to " + command);
                     break;
                 #endregion
 
                 case "sell":
+                    Core.Write("You sold that item");
                     break;
 
                 #region Buying
@@ -526,6 +783,7 @@ namespace RPGTextGame
                 case "purchase":
                 case "take":
                 case "acquire":
+                    Core.Write("You decided to" + command + "that item");
                     break;
                 #endregion
 
@@ -547,6 +805,7 @@ namespace RPGTextGame
                 case "observe":
                 case "scan":
                 case "survey":
+                    Core.Write("You " + command);
                     break;
                 #endregion
 
@@ -558,6 +817,7 @@ namespace RPGTextGame
                 case "wield":
                 case "ply":
                 case "expend":
+                    Core.Write("You " + command + " the item");
                     break;
                 #endregion
 
@@ -583,6 +843,7 @@ namespace RPGTextGame
                 case "wrestle":
                 case "tussle":
                 case "wrangle":
+                    Core.Write("It's time to " + command);
                     break;
                 #endregion
 
@@ -594,6 +855,7 @@ namespace RPGTextGame
                 case "travel":
                 case "traverse":
                 case "reconnoitre":
+                    Core.Write("You " + command + " the vicinities");
                     break;
                 #endregion
 
@@ -612,6 +874,7 @@ namespace RPGTextGame
                 case "gift":
                 case "lease":
                 case "relinquish":
+                    Core.Write("You " + command + "Vanessa the mighty magisword");
                     break;
 
                     #endregion
@@ -656,16 +919,24 @@ namespace RPGTextGame
         }
 
         #endregion
-
+        static string title = @"
+                        ██████╗ ███████╗ █████╗ ██████╗ ██████╗  ██████╗ ██╗███╗   ██╗████████╗
+                        ██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔═══██╗██║████╗  ██║╚══██╔══╝
+                        ██║  ██║█████╗  ███████║██║  ██║██████╔╝██║   ██║██║██╔██╗ ██║   ██║   
+                        ██║  ██║██╔══╝  ██╔══██║██║  ██║██╔═══╝ ██║   ██║██║██║╚██╗██║   ██║   
+                        ██████╔╝███████╗██║  ██║██████╔╝██║     ╚██████╔╝██║██║ ╚████║   ██║   
+                        ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝      ╚═════╝ ╚═╝╚═╝  ╚═══╝   ╚═╝ 
+                                                                       
+";
         static void Main(string[] args)
         {
-            //CharacterHero hero = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
-            //UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
+            CharacterHero Gervásio = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
+            UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
 
-            //EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30);
+            EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30);
 
-            ////Woods_1 explore = new Woods_1(hero);
-            ////explore.Woodsini();
+            //Woods_1 explore = new Woods_1(hero);
+            //explore.Woodsini();
 
             //OpeningNarrative narrative = new OpeningNarrative(hero);
             //Console.WriteLine("Debug opening narrative complete\n--------------------------------------------------------------------------------------------------\n");
@@ -673,36 +944,32 @@ namespace RPGTextGame
             //Console.Clear();
             //narrative.Chapter1();
 
-            //while (!Console.KeyAvailable)
-            //{
+            //Console.WriteLine(title);
+            //Console.Read();
 
-            //    command = Read().ToLower();
-            //    if (command == "show bag")
-            //        hero.ShowBag();
-            //    if (command == "look self")
-            //        hero.LookSelf();
-            //    if (command == "look item")
-            //        hero.LookItem(HealthPotion);
-            //    if (command == "use item")
-            //        hero.UseItem(HealthPotion);
 
-            //    Thread.Sleep(3);
-            //}
-            CharacterHero hero = new CharacterHero("Gervásio", 1233, 1332, 1332, 1332, 1332, 12332, /*Luck is here*/ 9, 1233, "Descriçao", 41241412, ConsoleColor.Red);
-            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string path = System.IO.Path.Combine(desktop, $"RNGTestResults_Luck{hero.luck}.txt");
-            
-
-            //Bitmap bmpSrc = new Bitmap(@"C:\Users\xatna35\Desktop\mona.jpg", true);
-            //ConsoleWriteImage(bmpSrc);
-            while (true)
+            while (!Console.KeyAvailable)
             {
 
+                checkUserInput(Core.Read(), Gervásio);
 
-                logChanceResults(path, hero);
-
-                Thread.Sleep(1);
+                Thread.Sleep(3);
             }
+            //CharacterHero hero = new CharacterHero("Gervásio", 1233, 1332, 1332, 1332, 1332, 12332, /*Luck is here*/ 9, 1233, "Descriçao", 41241412, ConsoleColor.Red);
+            //string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            //string path = System.IO.Path.Combine(desktop, $"RNGTestResults_Luck{hero.luck}.txt");
+
+
+            ////Bitmap bmpSrc = new Bitmap(@"C:\Users\xatna35\Desktop\mona.jpg", true);
+            ////ConsoleWriteImage(bmpSrc);
+            //while (true)
+            //{
+
+
+            //    logChanceResults(path, hero);
+
+            //    Thread.Sleep(1);
+            //}
         }
 
     }
