@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using System.Drawing;
+using static RPGTextGame.EquipableItem;
 
 
 namespace RPGTextGame
@@ -38,6 +39,7 @@ namespace RPGTextGame
         #endregion
 
         public static ConsoleColor narratorColor = ConsoleColor.White;
+        static string command;
         static string[] commandWords;
         static List<string> commandList = new List<string> { "walk","hike","stroll","march","stride",
             "run","dart","dash","rush","sprint","escape","spurt","flight","jog",
@@ -49,6 +51,9 @@ namespace RPGTextGame
             "fight","attack","battle","challenge","clash","meet","assault","bicker","brawl","contend","dispute","duel","feud","joust","quarrel","skirmish","spar","war","wrestle","tussle","wrangle",
             "explore","delve into","probe","scout","travel","traverse","reconnoitre",
             "give","award","deliver","donate","grant","hand over","hand out","present","provide","cede","entrust","gift","lease","relinquish",
+
+
+            "showbag","lookself","lookitem",
 
         };
 
@@ -112,6 +117,16 @@ namespace RPGTextGame
         {
             switch (command.ToLower())
             {
+
+                case "showbag":
+                    hero.ShowBag();
+                    break;
+                case "lookself":
+                    hero.LookSelf();
+                    break;
+                case "lookitem":
+                    hero.LookItem((UsableItem)hero.bag[2]);
+                    break;
                 #region Walking
                 //Undirectional walking
                 case "walk":
@@ -530,9 +545,6 @@ namespace RPGTextGame
                     
                     Core.Write("Use what?");
                     hero.UseItem(Core.Read());
-                    //read additional information
-                    //call hero.UseItem()
-                    //
                     break;
                 #endregion
 
@@ -601,6 +613,17 @@ namespace RPGTextGame
 
             switch (primaryCommand)
             {
+                //Todo Cleanup debugs
+                case "showbag":
+                    hero.ShowBag();
+                    break;
+                case "lookself":
+                hero.LookSelf();
+                    break;
+                case "lookitem":
+                    hero.LookItem((UsableItem)hero.bag[2]);
+                    break;
+
                 #region Walking
 
                 case "walk":
@@ -769,7 +792,7 @@ namespace RPGTextGame
                 case "wield":
                 case "ply":
                 case "expend":
-                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
+                    hero.UseItem(secondaryCommand);
                     break;
                 #endregion
 
@@ -888,11 +911,16 @@ namespace RPGTextGame
 ";
         static void Main(string[] args)
         {
+            List<Item> defaultBag = new List<Item> { new UsableItem("HealthPotion", "Regeneration for the win", TypesOfStats.HP, 100),
+                new EquipableItem("BootsOfHercules", "Resist to earthquakes", TypesOfStats.Armor,TypeOfEquip.Boots, 100),
+                new UsableItem("Apple", "Yummi", TypesOfStats.Stamina, 100),
+                new UsableItem("Banana", "Potassium powers", TypesOfStats.Intelligence, 100),
+                new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30)
+            };
+        
             CharacterHero Gervásio = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
-            UsableItem HealthPotion = new UsableItem("A Health Potion", "You feel vitalized", TypesOfStats.HP, 100);
-
-            EquipableItem HermesShoes = new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30);
-
+            Gervásio.bag = defaultBag;
+            ;
             //Woods_1 explore = new Woods_1(hero);
             //explore.Woodsini();
 
@@ -910,6 +938,9 @@ namespace RPGTextGame
             {
 
                 checkUserInput(Core.Read(),Gervásio);
+
+
+
 
                 Thread.Sleep(3);
             }

@@ -151,7 +151,7 @@ namespace RPGTextGame
         public void UseItem(string usableName)
         {
             UsableItem usable = findTheItemByName(usableName);
-            
+
             if (bag.Contains(usable) && usable != null)
             {
                 if (usable.isUsable)
@@ -171,9 +171,11 @@ namespace RPGTextGame
         }
         UsableItem findTheItemByName(string name)
         {
-            foreach (UsableItem c in bag)
-                if (c.itemName == name)
-                    return c;
+            //Todo Change description to itemName here and in the Item Class
+            foreach (var c in bag)
+                if (c.description != null)
+                    if (c.description.ToLower() == name.ToLower())
+                        return (UsableItem)c;
             return null;
         }
     }
