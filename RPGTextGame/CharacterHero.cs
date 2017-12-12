@@ -41,9 +41,9 @@ namespace RPGTextGame
             Core.Write(this.description);
         }
 
-        public override void LookItem(Item item)
+        public override void LookItem(UsableItem usable)
         {
-            Console.WriteLine(item.description);
+            Console.WriteLine(usable.description);
         }
 
         public override void Explore()

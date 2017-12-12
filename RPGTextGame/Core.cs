@@ -614,7 +614,9 @@ namespace RPGTextGame
             switch (primaryCommand)
             {
                 //Todo Cleanup debugs
-
+                case "showbag":
+                    hero.ShowBag();
+                    break;
                 case "lookself":
                 hero.LookSelf();
                     break;
@@ -778,23 +780,7 @@ namespace RPGTextGame
                 case "observe":
                 case "scan":
                 case "survey":
-                    switch (secondaryCommand)
-                    {
-                        case "bag":
-                            hero.ShowBag();
-                            break;
-                        case "self":
-                            hero.LookSelf();
-                            break;
-                        //This item case has to be fixed has it can be any item
-                        default:
-                            Core.Write("You couldn't find what you're looking for");
-                            break;
-
-                    }
-                    Item item;
-                    if (hero.bag.Contains((item = hero.findTheItemByName(secondaryCommand))))
-                        hero.LookItem(item);
+                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
                     break;
                 #endregion
 
@@ -925,12 +911,11 @@ namespace RPGTextGame
 ";
         static void Main(string[] args)
         {
-            //Todo using an item with multiple spaces will not be used because of word spliting method that is being used
             List<Item> defaultBag = new List<Item> { new UsableItem("HealthPotion", "Regeneration for the win", TypesOfStats.HP, 100),
                 new EquipableItem("BootsOfHercules", "Resist to earthquakes", TypesOfStats.Armor,TypeOfEquip.Boots, 100),
                 new UsableItem("Apple", "Yummi", TypesOfStats.Stamina, 100),
                 new UsableItem("Banana", "Potassium powers", TypesOfStats.Intelligence, 100),
-                new EquipableItem("HermesShoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30)
+                new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30)
             };
         
             CharacterHero Gervásio = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
