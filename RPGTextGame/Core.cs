@@ -97,8 +97,8 @@ namespace RPGTextGame
         #endregion
 
 
-        static string command;
         public static ConsoleColor narratorColor = ConsoleColor.White;
+        static string[] commandWords;
         static List<string> commandList = new List<string> { "walk","hike","stroll","march","stride",
             "run","dart","dash","rush","sprint","escape","spurt","flight","jog",
             "talk","chat","communicate","say","speak","tell","articulate","chatter","converse","utter","voice","pronounce","verbalize",
@@ -109,244 +109,6 @@ namespace RPGTextGame
             "fight","attack","battle","challenge","clash","meet","assault","bicker","brawl","contend","dispute","duel","feud","joust","quarrel","skirmish","spar","war","wrestle","tussle","wrangle",
             "explore","delve into","probe","scout","travel","traverse","reconnoitre",
             "give","award","deliver","donate","grant","hand over","hand out","present","provide","cede","entrust","gift","lease","relinquish",
-
-                  #region Absolute directions
-                 "walk north",
-                 "walk northward",
-                 "walk northwards",
-                 "hike north",
-                 "hike northward",
-                 "hike northwards",
-                 "stroll north",
-                 "stroll northward",
-                 "stroll northwards",
-                 "march north",
-                 "march northward",
-                 "march northwards",
-                 "stride north",
-                 "stride northward",
-                 "stride northwards",
-
-                 "walk south",
-                 "walk southward",
-                 "walk southwards",
-                 "hike south",
-                 "hike southward",
-                 "hike southwards",
-                 "stroll south",
-                 "stroll southward",
-                 "stroll southwards",
-                 "march south",
-                 "march southward",
-                 "march southwards",
-                 "stride south",
-                 "stride southward",
-                 "stride southwards",
-
-                 "walk east",
-                 "walk eastward",
-                 "walk eastwards",
-                 "walk orient",
-                 "hike east",
-                 "hike eastward",
-                 "hike eastwards",
-                 "hike orient",
-                 "stroll east",
-                 "stroll eastward",
-                 "stroll eastwards",
-                 "stroll orient",
-                 "march east",
-                 "march eastward",
-                 "march eastwards",
-                 "march orient",
-                 "stride east",
-                 "stride eastward",
-                 "stride eastwards",
-                 "stride orient",
-
-                 "walk west",
-                 "walk westward",
-                 "walk westwards",
-                 "walk occident",
-                 "hike west",
-                 "hike westward",
-                 "hike westwards",
-                 "hike occident",
-                 "stroll west",
-                 "stroll westward",
-                 "stroll westwards",
-                 "stroll occident",
-                 "march west",
-                 "march westward",
-                 "march westwards",
-                 "march occident",
-                 "stride west",
-                 "stride westward",
-                 "stride westwards",
-                 "stride occident",
-
-                #endregion
-
-                  #region Relative directions
-                //forward
-                 "walk forwards",
-                 "walk forward",
-                 "walk ahead",
-                 "walk onward",
-                 "walk forth",
-                 "walk along",
-                 "walk in front",
-                 "walk front",
-                 "hike forwards",
-                 "hike forward",
-                 "hike ahead",
-                 "hike onward",
-                 "hike forth",
-                 "hike along",
-                 "hike in front",
-                 "hike front",
-                 "stroll forwards",
-                 "stroll forward",
-                 "stroll ahead",
-                 "stroll onward",
-                 "stroll forth",
-                 "stroll along",
-                 "stroll in front",
-                 "stroll front",
-                 "march forwards",
-                 "march forward",
-                 "march ahead",
-                 "march onward",
-                 "march forth",
-                 "march along",
-                 "march in front",
-                 "march front",
-                 "stride forwards",
-                 "stride forward",
-                 "stride ahead",
-                 "stride onward",
-                 "stride forth",
-                 "stride along",
-                 "stride in front",
-                 "stride front",
-                //back
-                 "walk backwards",
-                 "walk backward",
-                 "walk rearward",
-                 "walk rearwards",
-                 "hike backwards",
-                 "hike backward",
-                 "hike rearward",
-                 "hike rearwards",
-                 "stroll backwards",
-                 "stroll backward",
-                 "stroll rearward",
-                 "stroll rearwards",
-                 "march backwards",
-                 "march backward",
-                 "march rearward",
-                 "march rearwards",
-                 "stride backwards",
-                 "stride backward",
-                 "stride rearward",
-                 "stride rearwards",
-
-                //left
-                 "walk leftwards",
-                 "walk leftward",
-                 "walk left",
-                 "hike leftwards",
-                 "hike leftward",
-                 "hike left",
-                 "stroll leftwards",
-                 "stroll leftward",
-                 "stroll left",
-                 "march leftwards",
-                 "march leftward",
-                 "march left",
-                 "stride leftwards",
-                 "stride leftward",
-                 "stride left",
-
-                //right
-                 "walk rightwards",
-                 "walk rightward",
-                 "walk right",
-                 "hike rightwards",
-                 "hike rightward",
-                 "hike right",
-                 "stroll rightwards",
-                 "stroll rightward",
-                 "stroll right",
-                 "march rightwards",
-                 "march rightward",
-                 "march right",
-                 "stride rightwards",
-                 "stride rightward",
-                 "stride right",
-
-                #endregion
-
-                  #region Up Down directions
-                 "walk up",
-                 "walk upward",
-                 "walk upwards",
-                 "walk skywards",
-                 "walk skyward",
-                 "hike up",
-                 "hike upward",
-                 "hike upwards",
-                 "hike skywards",
-                 "hike skyward",
-                 "stroll up",
-                 "stroll upward",
-                 "stroll upwards",
-                 "stroll skywards",
-                 "stroll skyward",
-                 "march up",
-                 "march upward",
-                 "march upwards",
-                 "march skywards",
-                 "march skyward",
-                 "stride up",
-                 "stride upward",
-                 "stride upwards",
-                 "stride skywards",
-                 "stride skyward",
-
-                 "walk down",
-                 "walk downwards",
-                 "walk downward",
-                 "walk earthward",
-                 "walk earthwards",
-                 "hike down",
-                 "hike downwards",
-                 "hike downward",
-                 "hike earthward",
-                 "hike earthwards",
-                 "stroll down",
-                 "stroll downwards",
-                 "stroll downward",
-                 "stroll earthward",
-                 "stroll earthwards",
-                 "march down",
-                 "march downwards",
-                 "march downward",
-                 "march earthward",
-                 "march earthwards",
-                 "stride down",
-                 "stride downwards",
-                 "stride downward",
-                 "stride earthward",
-                 "stride earthwards",
-
-                #endregion
-
-
-
-
-
-
 
         };
 
@@ -376,29 +138,278 @@ namespace RPGTextGame
             Console.Write("\n");
         }
 
-
-        public static bool isInputValidCommand(string input)
+        public static string[] splitCommandIntoWords(string UserInput)
         {
+            return commandWords = UserInput.Split();
+        }
+
+        public static bool isInputValidPrimaryCommand(string input)
+        {
+
             foreach (string i in commandList)
                 if (i.Equals(input.ToLower()))
                     return true;
             return false;
         }
-
-        public static void checkUserInput(string input, CharacterHero hero) //call this when you want to read a command from User
+        public static void ExecuteCommand(string primaryCommand, string secondaryCommand)
         {
-            input.ToLower();
-            if (!isInputValidCommand(input))
-                Core.Write("Was that a typo?");
+
+            switch (primaryCommand)
+            {
+                #region Walking
+
+                case "walk":
+                case "hike":
+                case "stroll":
+                case "march":
+                case "stride":
+                    switch (secondaryCommand)
+                    {
+                        #region Absolute directions
+                        case "north":
+                        case "northward":
+                        case "northwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "south":
+                        case "southward":
+                        case "southwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "east":
+                        case "eastward":
+                        case "eastwards":
+                        case "orient":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "west":
+                        case "westward":
+                        case "westwards":
+                        case "occident":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        #endregion
+
+                        #region Relative directions
+                        //forward
+                        case "forwards":
+                        case "forward":
+                        case "ahead":
+                        case "onward":
+                        case "forth":
+                        case "along":
+                        case "in front":
+                        case "front":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        //back
+                        case "backwards":
+                        case "backward":
+                        case "rearward":
+                        case "rearwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        //left
+                        case "leftwards":
+                        case "leftward":
+                        case "left":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        //right
+                        case "rightwards":
+                        case "rightward":
+                        case "right":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        #endregion
+
+                        #region Up Down directions
+                        case "up":
+                        case "upward":
+                        case "upwards":
+                        case "skywards":
+                        case "skyward":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "down":
+                        case "downwards":
+                        case "downward":
+                        case "earthward":
+                        case "earthwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        #endregion
+
+                        default:
+                            Core.Write("What kind of direction is that?", narratorColor);
+                            break;
+                    }
+                    break;
+
+                #endregion
+
+                #region Running
+                case "run":
+                case "dart":
+                case "dash":
+                case "rush":
+                case "sprint":
+                case "escape":
+                case "spurt":
+                case "flight":
+                case "jog":
+                    Core.Write("Dummy running action");//Todo Decide if run is a 2 step command
+                    break;
+                #endregion
+                #region Dialog
+                case "talk":
+                case "chat":
+                case "communicate":
+                case "say":
+                case "speak":
+                case "tell":
+                case "articulate":
+                case "chatter":
+                case "converse":
+                case "utter":
+                case "voice":
+                case "pronounce":
+                case "verbalize":
+                    Core.Write("You decided to " + primaryCommand + " with " + secondaryCommand);
+                    break;
+                #endregion
+
+                case "sell":
+                    Core.Write("You sold that item");
+                    break;
+
+                #region Buying
+                case "buy":
+                case "get":
+                case "obtain":
+                case "purchase":
+                case "take":
+                case "acquire":
+                    Core.Write("You decided to" + primaryCommand + "the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region Environment inspection
+                case "look":
+                case "glance":
+                case "notice":
+                case "see":
+                case "stare":
+                case "study":
+                case "watch":
+                case "admire":
+                case "behold":
+                case "beware":
+                case "contemplate":
+                case "focus":
+                case "gaze":
+                case "inspect":
+                case "observe":
+                case "scan":
+                case "survey":
+                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region  Use stuff
+                case "use":
+                case "consume":
+                case "apply":
+                case "spend":
+                case "wield":
+                case "ply":
+                case "expend":
+                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region Engage fight
+                case "fight":
+                case "attack":
+                case "battle":
+                case "challenge":
+                case "clash":
+                case "meet":
+                case "assault":
+                case "bicker":
+                case "brawl":
+                case "contend":
+                case "dispute":
+                case "duel":
+                case "feud":
+                case "joust":
+                case "quarrel":
+                case "skirmish":
+                case "spar":
+                case "war":
+                case "wrestle":
+                case "tussle":
+                case "wrangle":
+                    Core.Write("It's time to " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region Scenario exploration
+                case "explore":
+                case "delve into":
+                case "probe":
+                case "scout":
+                case "travel":
+                case "traverse":
+                case "reconnoitre":
+                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                //Todo Giving is done by "Give {target} the {item}" or "Give the {item} to {target}
+                #region Give items
+                case "give":
+                case "award":
+                case "deliver":
+                case "donate":
+                case "grant":
+                case "hand over":
+                case "hand out":
+                case "present":
+                case "provide":
+                case "cede":
+                case "entrust":
+                case "gift":
+                case "lease":
+                case "relinquish":
+                    Core.Write("You " + primaryCommand + "Vanessa " + secondaryCommand);
+                    break;
+
+                #endregion
+                default:
+                    Core.Write("You can't do that", narratorColor);
+                    break;
+
+            }
+        }
+
+        public static void checkUserInput(string input) //call this when you want to read a command from User
+        {
+            input.ToLower();//lower case
+            splitCommandIntoWords(input); //split the words
+            if (!isInputValidPrimaryCommand(commandWords[0])) //check 1st word if possible
+                Core.Write("That action is not possible");
             else
             {
-                ExecuteCommand(input, hero);
+                if (commandWords.Length > 1)
+                    ExecuteCommand(commandWords[0], commandWords[1]);
+                else
+                    ExecuteCommand(commandWords[0]);
             }
-
 
         }
 
-        public static void ExecuteCommand(string command, CharacterHero hero)
+        public static void ExecuteCommand(string command)
         {
             switch (command.ToLower())
             {
@@ -418,7 +429,7 @@ namespace RPGTextGame
                         case "north":
                         case "northward":
                         case "northwards":
-                            Core.Write("You "+ command +" "+ additionalCommand);
+                            Core.Write("You " + command + " " + additionalCommand);
                             break;
                         case "south":
                         case "southward":
@@ -951,7 +962,7 @@ namespace RPGTextGame
             while (!Console.KeyAvailable)
             {
 
-                checkUserInput(Core.Read(), Gervásio);
+                checkUserInput(Core.Read());
 
                 Thread.Sleep(3);
             }

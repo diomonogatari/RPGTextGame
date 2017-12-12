@@ -61,5 +61,9 @@ namespace RPGTextGame
         {
             throw new NotImplementedException();
         }
+        public void Walk()
+        {
+
+        }
     }
 }
