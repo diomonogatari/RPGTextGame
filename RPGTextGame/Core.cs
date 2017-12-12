@@ -37,66 +37,6 @@ namespace RPGTextGame
         }
         #endregion
 
-        #region Images in console
-        static int[] cColors = { 0x000000, 0x000080, 0x008000, 0x008080, 0x800000, 0x800080, 0x808000, 0xC0C0C0, 0x808080, 0x0000FF, 0x00FF00, 0x00FFFF, 0xFF0000, 0xFF00FF, 0xFFFF00, 0xFFFFFF };
-
-        public static void ConsoleWritePixel(Color cValue)
-        {
-            Color[] cTable = cColors.Select(x => Color.FromArgb(x)).ToArray();
-            char[] rList = new char[] { (char)9617, (char)9618, (char)9619, (char)9608 }; // 1/4, 2/4, 3/4, 4/4
-            int[] bestHit = new int[] { 0, 0, 4, int.MaxValue }; //ForeColor, BackColor, Symbol, Score
-
-            for (int rChar = rList.Length; rChar > 0; rChar--)
-            {
-                for (int cFore = 0; cFore < cTable.Length; cFore++)
-                {
-                    for (int cBack = 0; cBack < cTable.Length; cBack++)
-                    {
-                        int R = (cTable[cFore].R * rChar + cTable[cBack].R * (rList.Length - rChar)) / rList.Length;
-                        int G = (cTable[cFore].G * rChar + cTable[cBack].G * (rList.Length - rChar)) / rList.Length;
-                        int B = (cTable[cFore].B * rChar + cTable[cBack].B * (rList.Length - rChar)) / rList.Length;
-                        int iScore = (cValue.R - R) * (cValue.R - R) + (cValue.G - G) * (cValue.G - G) + (cValue.B - B) * (cValue.B - B);
-                        if (!(rChar > 1 && rChar < 4 && iScore > 50000)) // rule out too weird combinations
-                        {
-                            if (iScore < bestHit[3])
-                            {
-                                bestHit[3] = iScore; //Score
-                                bestHit[0] = cFore;  //ForeColor
-                                bestHit[1] = cBack;  //BackColor
-                                bestHit[2] = rChar;  //Symbol
-                            }
-                        }
-                    }
-                }
-            }
-            Console.ForegroundColor = (ConsoleColor)bestHit[0];
-            Console.BackgroundColor = (ConsoleColor)bestHit[1];
-            Console.Write(rList[bestHit[2] - 1]);
-        }
-
-
-        public static void ConsoleWriteImage(Bitmap source)
-        {
-            int sMax = 39;
-            decimal percent = Math.Min(decimal.Divide(sMax, source.Width), decimal.Divide(sMax, source.Height));
-            Size dSize = new Size((int)(source.Width * percent), (int)(source.Height * percent));
-            Bitmap bmpMax = new Bitmap(source, dSize.Width * 2, dSize.Height);
-            for (int i = 0; i < dSize.Height; i++)
-            {
-                for (int j = 0; j < dSize.Width; j++)
-                {
-                    ConsoleWritePixel(bmpMax.GetPixel(j * 2, i));
-                    ConsoleWritePixel(bmpMax.GetPixel(j * 2 + 1, i));
-                }
-                System.Console.WriteLine();
-            }
-            Console.ResetColor();
-        }
-
-
-        #endregion
-
-
         public static ConsoleColor narratorColor = ConsoleColor.White;
         static string[] commandWords;
         static List<string> commandList = new List<string> { "walk","hike","stroll","march","stride",
@@ -138,262 +78,20 @@ namespace RPGTextGame
             Console.Write("\n");
         }
 
-        public static string[] splitCommandIntoWords(string UserInput)
+        static string[] splitCommandIntoWords(string UserInput)
         {
             return commandWords = UserInput.Split();
         }
 
-        public static bool isInputValidPrimaryCommand(string input)
+        static bool isInputValidPrimaryCommand(string input) 
         {
-
             foreach (string i in commandList)
                 if (i.Equals(input.ToLower()))
                     return true;
             return false;
         }
-        public static void ExecuteCommand(string primaryCommand, string secondaryCommand)
-        {
 
-            switch (primaryCommand)
-            {
-                #region Walking
-
-                case "walk":
-                case "hike":
-                case "stroll":
-                case "march":
-                case "stride":
-                    switch (secondaryCommand)
-                    {
-                        #region Absolute directions
-                        case "north":
-                        case "northward":
-                        case "northwards":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        case "south":
-                        case "southward":
-                        case "southwards":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        case "east":
-                        case "eastward":
-                        case "eastwards":
-                        case "orient":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        case "west":
-                        case "westward":
-                        case "westwards":
-                        case "occident":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        #endregion
-
-                        #region Relative directions
-                        //forward
-                        case "forwards":
-                        case "forward":
-                        case "ahead":
-                        case "onward":
-                        case "forth":
-                        case "along":
-                        case "in front":
-                        case "front":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        //back
-                        case "backwards":
-                        case "backward":
-                        case "rearward":
-                        case "rearwards":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        //left
-                        case "leftwards":
-                        case "leftward":
-                        case "left":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        //right
-                        case "rightwards":
-                        case "rightward":
-                        case "right":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        #endregion
-
-                        #region Up Down directions
-                        case "up":
-                        case "upward":
-                        case "upwards":
-                        case "skywards":
-                        case "skyward":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        case "down":
-                        case "downwards":
-                        case "downward":
-                        case "earthward":
-                        case "earthwards":
-                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
-                            break;
-                        #endregion
-
-                        default:
-                            Core.Write("What kind of direction is that?", narratorColor);
-                            break;
-                    }
-                    break;
-
-                #endregion
-
-                #region Running
-                case "run":
-                case "dart":
-                case "dash":
-                case "rush":
-                case "sprint":
-                case "escape":
-                case "spurt":
-                case "flight":
-                case "jog":
-                    Core.Write("Dummy running action");//Todo Decide if run is a 2 step command
-                    break;
-                #endregion
-                #region Dialog
-                case "talk":
-                case "chat":
-                case "communicate":
-                case "say":
-                case "speak":
-                case "tell":
-                case "articulate":
-                case "chatter":
-                case "converse":
-                case "utter":
-                case "voice":
-                case "pronounce":
-                case "verbalize":
-                    Core.Write("You decided to " + primaryCommand + " with " + secondaryCommand);
-                    break;
-                #endregion
-
-                case "sell":
-                    Core.Write("You sold that item");
-                    break;
-
-                #region Buying
-                case "buy":
-                case "get":
-                case "obtain":
-                case "purchase":
-                case "take":
-                case "acquire":
-                    Core.Write("You decided to" + primaryCommand + "the " + secondaryCommand);
-                    break;
-                #endregion
-
-                #region Environment inspection
-                case "look":
-                case "glance":
-                case "notice":
-                case "see":
-                case "stare":
-                case "study":
-                case "watch":
-                case "admire":
-                case "behold":
-                case "beware":
-                case "contemplate":
-                case "focus":
-                case "gaze":
-                case "inspect":
-                case "observe":
-                case "scan":
-                case "survey":
-                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
-                    break;
-                #endregion
-
-                #region  Use stuff
-                case "use":
-                case "consume":
-                case "apply":
-                case "spend":
-                case "wield":
-                case "ply":
-                case "expend":
-                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
-                    break;
-                #endregion
-
-                #region Engage fight
-                case "fight":
-                case "attack":
-                case "battle":
-                case "challenge":
-                case "clash":
-                case "meet":
-                case "assault":
-                case "bicker":
-                case "brawl":
-                case "contend":
-                case "dispute":
-                case "duel":
-                case "feud":
-                case "joust":
-                case "quarrel":
-                case "skirmish":
-                case "spar":
-                case "war":
-                case "wrestle":
-                case "tussle":
-                case "wrangle":
-                    Core.Write("It's time to " + primaryCommand + " the " + secondaryCommand);
-                    break;
-                #endregion
-
-                #region Scenario exploration
-                case "explore":
-                case "delve into":
-                case "probe":
-                case "scout":
-                case "travel":
-                case "traverse":
-                case "reconnoitre":
-                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
-                    break;
-                #endregion
-
-                //Todo Giving is done by "Give {target} the {item}" or "Give the {item} to {target}
-                #region Give items
-                case "give":
-                case "award":
-                case "deliver":
-                case "donate":
-                case "grant":
-                case "hand over":
-                case "hand out":
-                case "present":
-                case "provide":
-                case "cede":
-                case "entrust":
-                case "gift":
-                case "lease":
-                case "relinquish":
-                    Core.Write("You " + primaryCommand + "Vanessa " + secondaryCommand);
-                    break;
-
-                #endregion
-                default:
-                    Core.Write("You can't do that", narratorColor);
-                    break;
-
-            }
-        }
-
-        public static void checkUserInput(string input) //call this when you want to read a command from User
+        public static void checkUserInput(string input, CharacterHero hero) //call this when you want to read a command from User
         {
             input.ToLower();//lower case
             splitCommandIntoWords(input); //split the words
@@ -402,14 +100,15 @@ namespace RPGTextGame
             else
             {
                 if (commandWords.Length > 1)
-                    ExecuteCommand(commandWords[0], commandWords[1]);
+                    ExecuteCommand(commandWords[0], commandWords[1], hero);
                 else
-                    ExecuteCommand(commandWords[0]);
+                    ExecuteCommand(commandWords[0],hero);
             }
 
         }
 
-        public static void ExecuteCommand(string command)
+        #region ExecuteCommand
+        static void ExecuteCommand(string command, CharacterHero hero)
         {
             switch (command.ToLower())
             {
@@ -828,7 +527,12 @@ namespace RPGTextGame
                 case "wield":
                 case "ply":
                 case "expend":
-                    Core.Write("You " + command + " the item");
+                    
+                    Core.Write("Use what?");
+                    hero.UseItem(Core.Read());
+                    //read additional information
+                    //call hero.UseItem()
+                    //
                     break;
                 #endregion
 
@@ -891,6 +595,249 @@ namespace RPGTextGame
                     #endregion
             }
         }
+
+        static void ExecuteCommand(string primaryCommand, string secondaryCommand, CharacterHero hero)
+        {
+
+            switch (primaryCommand)
+            {
+                #region Walking
+
+                case "walk":
+                case "hike":
+                case "stroll":
+                case "march":
+                case "stride":
+                    switch (secondaryCommand)
+                    {
+                        #region Absolute directions
+                        case "north":
+                        case "northward":
+                        case "northwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "south":
+                        case "southward":
+                        case "southwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "east":
+                        case "eastward":
+                        case "eastwards":
+                        case "orient":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "west":
+                        case "westward":
+                        case "westwards":
+                        case "occident":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        #endregion
+
+                        #region Relative directions
+                        //forward
+                        case "forwards":
+                        case "forward":
+                        case "ahead":
+                        case "onward":
+                        case "forth":
+                        case "along":
+                        case "in front":
+                        case "front":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        //back
+                        case "backwards":
+                        case "backward":
+                        case "rearward":
+                        case "rearwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        //left
+                        case "leftwards":
+                        case "leftward":
+                        case "left":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        //right
+                        case "rightwards":
+                        case "rightward":
+                        case "right":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        #endregion
+
+                        #region Up Down directions
+                        case "up":
+                        case "upward":
+                        case "upwards":
+                        case "skywards":
+                        case "skyward":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        case "down":
+                        case "downwards":
+                        case "downward":
+                        case "earthward":
+                        case "earthwards":
+                            Core.Write("You " + primaryCommand + " " + secondaryCommand);
+                            break;
+                        #endregion
+
+                        default:
+                            Core.Write("What kind of direction is that?", narratorColor);
+                            break;
+                    }
+                    break;
+
+                #endregion
+
+                #region Running
+                case "run":
+                case "dart":
+                case "dash":
+                case "rush":
+                case "sprint":
+                case "escape":
+                case "spurt":
+                case "flight":
+                case "jog":
+                    Core.Write("Dummy running action");//Todo Decide if run is a 2 step command
+                    break;
+                #endregion
+                #region Dialog
+                case "talk":
+                case "chat":
+                case "communicate":
+                case "say":
+                case "speak":
+                case "tell":
+                case "articulate":
+                case "chatter":
+                case "converse":
+                case "utter":
+                case "voice":
+                case "pronounce":
+                case "verbalize":
+                    Core.Write("You decided to " + primaryCommand + " with " + secondaryCommand);
+                    break;
+                #endregion
+
+                case "sell":
+                    Core.Write("You sold that item");
+                    break;
+
+                #region Buying
+                case "buy":
+                case "get":
+                case "obtain":
+                case "purchase":
+                case "take":
+                case "acquire":
+                    Core.Write("You decided to" + primaryCommand + "the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region Environment inspection
+                case "look":
+                case "glance":
+                case "notice":
+                case "see":
+                case "stare":
+                case "study":
+                case "watch":
+                case "admire":
+                case "behold":
+                case "beware":
+                case "contemplate":
+                case "focus":
+                case "gaze":
+                case "inspect":
+                case "observe":
+                case "scan":
+                case "survey":
+                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region  Use stuff
+                case "use":
+                case "consume":
+                case "apply":
+                case "spend":
+                case "wield":
+                case "ply":
+                case "expend":
+                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region Engage fight
+                case "fight":
+                case "attack":
+                case "battle":
+                case "challenge":
+                case "clash":
+                case "meet":
+                case "assault":
+                case "bicker":
+                case "brawl":
+                case "contend":
+                case "dispute":
+                case "duel":
+                case "feud":
+                case "joust":
+                case "quarrel":
+                case "skirmish":
+                case "spar":
+                case "war":
+                case "wrestle":
+                case "tussle":
+                case "wrangle":
+                    Core.Write("It's time to " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                #region Scenario exploration
+                case "explore":
+                case "delve into":
+                case "probe":
+                case "scout":
+                case "travel":
+                case "traverse":
+                case "reconnoitre":
+                    Core.Write("You " + primaryCommand + " the " + secondaryCommand);
+                    break;
+                #endregion
+
+                //Todo Giving is done by "Give {target} the {item}" or "Give the {item} to {target}
+                #region Give items
+                case "give":
+                case "award":
+                case "deliver":
+                case "donate":
+                case "grant":
+                case "hand over":
+                case "hand out":
+                case "present":
+                case "provide":
+                case "cede":
+                case "entrust":
+                case "gift":
+                case "lease":
+                case "relinquish":
+                    Core.Write("You " + primaryCommand + "Vanessa " + secondaryCommand);
+                    break;
+
+                #endregion
+                default:
+                    Core.Write("You can't do that", narratorColor);
+                    break;
+
+            }
+        }
+        #endregion
 
         public static String Read()
         {
@@ -962,7 +909,7 @@ namespace RPGTextGame
             while (!Console.KeyAvailable)
             {
 
-                checkUserInput(Core.Read());
+                checkUserInput(Core.Read(),Gervásio);
 
                 Thread.Sleep(3);
             }

@@ -148,19 +148,33 @@ namespace RPGTextGame
         public virtual void Explore() { }
         public abstract void LookItem(UsableItem usable);
         public abstract void LookSelf();
-        public void UseItem(UsableItem usable)
+        public void UseItem(string usableName)
         {
-            if (usable.isUsable/*also has to check if it is in the bag*/)
+            UsableItem usable = findTheItemByName(usableName);
+            
+            if (bag.Contains(usable) && usable != null)
             {
-                Core.Write(usable.afterUseDescription);
+                if (usable.isUsable)
+                {
+                    Core.Write(usable.afterUseDescription);
 
-                checkStatAndIncrease(usable.statToIncrease, usable, this);
-                bag.Remove(usable);
+                    checkStatAndIncrease(usable.statToIncrease, usable, this);
+                    bag.Remove(usable);
 
 
+                }
+                else
+                    Core.Write("This Item is not usable");
             }
             else
-                Core.Write("This Item is not usable");
+                Core.Write("That item is not on your bag");
+        }
+        UsableItem findTheItemByName(string name)
+        {
+            foreach (UsableItem c in bag)
+                if (c.itemName == name)
+                    return c;
+            return null;
         }
     }
 }

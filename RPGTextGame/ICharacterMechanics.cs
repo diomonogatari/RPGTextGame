@@ -9,7 +9,7 @@ namespace RPGTextGame
     public interface ICharacterMechanics
     {
         void Explore();
-        void UseItem(UsableItem usable);
+        void UseItem(string usable);
         void Equip(EquipableItem equipable);
 
         void LookSelf();
