@@ -150,7 +150,7 @@ namespace RPGTextGame
         public abstract void LookSelf();
         public void UseItem(string usableName)
         {
-            UsableItem usable = findTheItemByName(usableName);
+            Item usable = findTheItemByName(usableName);
 
             if (bag.Contains(usable) && usable != null)
             {
@@ -169,13 +169,13 @@ namespace RPGTextGame
             else
                 Core.Write("That item is not on your bag");
         }
-        UsableItem findTheItemByName(string name)
+        Item findTheItemByName(string name)
         {
             //Todo Change description to itemName here and in the Item Class
             foreach (var c in bag)
-                if (c.description != null)
-                    if (c.description.ToLower() == name.ToLower())
-                        return (UsableItem)c;
+                if (c.itemName != null)
+                    if (c.itemName.ToLower() == name.ToLower())
+                        return c;
             return null;
         }
     }

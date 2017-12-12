@@ -38,8 +38,19 @@ namespace RPGTextGame
         }
         #endregion
 
+        /*Todo create a dictionary with words of complementaries to commands
+         * 
+         * Examples : "to", "the", etc
+         * 
+         * So instead of spliting the command by their whitespace we split them by real words and names
+         * 
+         * This will alleviate the work by allowing item names and hero names searchable and trimmable into words that later will be parsed has command targets
+         * 
+         * This will also create a grammatically correct commands that will improve user experience (imho)
+         * 
+         * 
+         */
         public static ConsoleColor narratorColor = ConsoleColor.White;
-        static string command;
         static string[] commandWords;
         static List<string> commandList = new List<string> { "walk","hike","stroll","march","stride",
             "run","dart","dash","rush","sprint","escape","spurt","flight","jog",
@@ -51,9 +62,6 @@ namespace RPGTextGame
             "fight","attack","battle","challenge","clash","meet","assault","bicker","brawl","contend","dispute","duel","feud","joust","quarrel","skirmish","spar","war","wrestle","tussle","wrangle",
             "explore","delve into","probe","scout","travel","traverse","reconnoitre",
             "give","award","deliver","donate","grant","hand over","hand out","present","provide","cede","entrust","gift","lease","relinquish",
-
-
-            "showbag","lookself","lookitem",
 
         };
 
@@ -117,16 +125,6 @@ namespace RPGTextGame
         {
             switch (command.ToLower())
             {
-
-                case "showbag":
-                    hero.ShowBag();
-                    break;
-                case "lookself":
-                    hero.LookSelf();
-                    break;
-                case "lookitem":
-                    hero.LookItem((UsableItem)hero.bag[2]);
-                    break;
                 #region Walking
                 //Undirectional walking
                 case "walk":
@@ -479,6 +477,7 @@ namespace RPGTextGame
                     Core.Write("You started to " + command);
                     break;
                 #endregion
+
                 #region Dialog
                 case "talk":
                 case "chat":
@@ -613,17 +612,6 @@ namespace RPGTextGame
 
             switch (primaryCommand)
             {
-                //Todo Cleanup debugs
-                case "showbag":
-                    hero.ShowBag();
-                    break;
-                case "lookself":
-                hero.LookSelf();
-                    break;
-                case "lookitem":
-                    hero.LookItem((UsableItem)hero.bag[2]);
-                    break;
-
                 #region Walking
 
                 case "walk":
@@ -911,11 +899,11 @@ namespace RPGTextGame
 ";
         static void Main(string[] args)
         {
-            List<Item> defaultBag = new List<Item> { new UsableItem("HealthPotion", "Regeneration for the win", TypesOfStats.HP, 100),
-                new EquipableItem("BootsOfHercules", "Resist to earthquakes", TypesOfStats.Armor,TypeOfEquip.Boots, 100),
-                new UsableItem("Apple", "Yummi", TypesOfStats.Stamina, 100),
-                new UsableItem("Banana", "Potassium powers", TypesOfStats.Intelligence, 100),
-                new EquipableItem("Hermes Shoes", "Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30)
+            List<Item> defaultBag = new List<Item> { new UsableItem("HealthPotion","A health potion", "Regeneration for the win", TypesOfStats.HP, 100),
+                new EquipableItem("BootsOfHercules","Hard as stone", "Resist to earthquakes", TypesOfStats.Armor,TypeOfEquip.Boots, 100),
+                new UsableItem("Apple","Newton's favorite", "Yummi", TypesOfStats.Stamina, 100),
+                new UsableItem("Banana","Pedro's favorite", "Potassium powers", TypesOfStats.Intelligence, 100),
+                new EquipableItem("HermesShoes","Fresh cut from the Messenger of the Gods","Fast as hell boys", TypesOfStats.Luck, EquipableItem.TypeOfEquip.Boots, 30)
             };
         
             CharacterHero Gervásio = new CharacterHero("Anon", 500, 100, 50, 10, 25, 5, 1, 5, "Your clothes are filthy, and there's cuts and blood all over your body", 0, ConsoleColor.Cyan);
