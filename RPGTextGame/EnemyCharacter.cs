@@ -29,7 +29,7 @@ namespace RPGTextGame
             throw new NotImplementedException();
         }
 
-        public override void LookItem(UsableItem usable)
+        public override void LookItem(Item item)
         {
             throw new NotImplementedException();
         }

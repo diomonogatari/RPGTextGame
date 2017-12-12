@@ -146,11 +146,11 @@ namespace RPGTextGame
                 Core.Write("Item is not equipable/in bag");
         }
         public virtual void Explore() { }
-        public abstract void LookItem(UsableItem usable);
+        public abstract void LookItem(Item item);
         public abstract void LookSelf();
         public void UseItem(string usableName)
         {
-            UsableItem usable = findTheItemByName(usableName);
+            Item usable = findTheItemByName(usableName);
 
             if (bag.Contains(usable) && usable != null)
             {
@@ -169,13 +169,14 @@ namespace RPGTextGame
             else
                 Core.Write("That item is not on your bag");
         }
-        UsableItem findTheItemByName(string name)
+        public Item findTheItemByName(string name)
         {
             //Todo Change description to itemName here and in the Item Class
             foreach (var c in bag)
                 if (c.description != null)
                     if (c.description.ToLower() == name.ToLower())
-                        return (UsableItem)c;
+                        return c;
+
             return null;
         }
     }

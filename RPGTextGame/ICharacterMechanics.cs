@@ -13,6 +13,6 @@ namespace RPGTextGame
         void Equip(EquipableItem equipable);
 
         void LookSelf();
-        void LookItem(UsableItem usable);
+        void LookItem(Item item);
     }
 }
